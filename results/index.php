@@ -188,10 +188,6 @@ if (empty($desiredWorld) || !$worldExists)
     These are the results for the most efficient items to buy with seals and sell for gil on the market on <u><?php echo $worldName; ?></u> - excluding furniture items.
     <br>
     The top result is the most efficient item that is selling the quickest you can just nab and start selling now.
-    <br><br>
-    If you're intent on getting more information, you can scroll through the list and see the NAME of the item (and in parentheses, the rank tab that the item is in,
-    and which material tab it is in), PRICE to sell at per item (1 gil under the lowest listing; in parentheses next to the price is the exact price the item last sold for),
-    EFFICIENCY to see gil per seal, SPEED to get a rating of how much has been selling (worst to best: red, gray, yellow, green, pink, purple), and SALES (per time period).
 </p>
 
 <div class="mx-auto place-items-center justify-center">
