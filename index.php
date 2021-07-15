@@ -61,6 +61,8 @@
 <script src="/assets/js/worldList.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6"></script>
 <script>
+let x = 0;
+
 //Load search results jQuery element
 let searchResults = $("#searchResults");
 
@@ -77,6 +79,8 @@ const fuse = new Fuse(serverList, options);
 
 //When someone types in the world search
 $("#worldSearch").keyup(function(e) {
+  x = 0;
+
   //Fuzzy search the list of worlds
   let results = fuse.search($(this).val());
 
@@ -93,9 +97,13 @@ $("#worldSearch").keyup(function(e) {
     searchResults.show();
 
     for (let result of results) {
+      if (x > 2) continue;
+
       searchResults.append("<div class='worldSearchResult flex mx-auto px-5 hover:bg-gray-700 py-2 px-5 cursor-pointer' data-world='" + result.item.world
       + "'><div class='w-3/6 text-gray-300'>" + result.item.world
       + "</div><div class='w-3/6 text-gray-400'>(" + result.item.group + " in " + result.item.region + ")</div></div>");
+
+      x++;
     }
   }
   //Hide search results with no results
