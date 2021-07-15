@@ -164,7 +164,6 @@ if (!empty($desiredWorld)) {
 
     foreach ($resultSelection as $result)
         $results .= str_replace(
-            $itemFormat,
             [
                 '#ITEM_NAME',
                 '#PRICE',
@@ -182,7 +181,8 @@ if (!empty($desiredWorld)) {
                 $result['sales']['twoDays'],
                 $result['speed'],
                 'sort: ' . $result['sort'],
-            ]
+            ],
+            $itemFormat
         );
 }
 
