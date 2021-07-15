@@ -14,9 +14,23 @@ $worldExists = false;
 if (!empty($desiredWorld)) {
     if ($desiredWorld == $world['world']) $worldExists = true;
 
+    $x = 1;
+
     foreach ($exchangeItems as $itemID => $item) {
-        echo '<br>' . $itemID . ' <br>';
-        echo json_encode($item);
+        $x++;
+
+        if ($x > 1) continue;
+
+        $curl = curl_init();
+        curl_setopt($curl, CURLOPT_URL, "https://universalis.app/api/");
+        curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
+
+        echo '<br>' . $itemID . '<br>';
+        echo json_encode($item) . '<br>';
+
+        echo curl_exec($curl);
+
+        curl_close($curl);
     }
 }
 
