@@ -139,6 +139,11 @@ if (!empty($desiredWorld)) {
         ];
     }
 
+    $speed_keys = array_column($resultData, 'speed');
+    array_multisort($speed_keys, SORT_DESC, $resultData);
+    $resultSelection[] = $resultData[0];
+    $resultSelection[] = $resultData[1];
+
     $sort_keys = array_column($resultData, 'sort');
     array_multisort($sort_keys, SORT_DESC, $resultData);
     $resultSelection[] = $resultData[0];
@@ -146,11 +151,6 @@ if (!empty($desiredWorld)) {
 
     $efficiency_keys = array_column($resultData, 'efficiency');
     array_multisort($efficiency_keys, SORT_DESC, $resultData);
-    $resultSelection[] = $resultData[0];
-    $resultSelection[] = $resultData[1];
-
-    $speed_keys = array_column($resultData, 'speed');
-    array_multisort($speed_keys, SORT_DESC, $resultData);
     $resultSelection[] = $resultData[0];
     $resultSelection[] = $resultData[1];
 
