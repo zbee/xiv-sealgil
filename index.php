@@ -104,7 +104,7 @@ $("#worldSearch").keyup(function() {
   }
 });
 
-$(".worldSearchResult").on('click', function () {
+$(document).on('click', '.worldSearchResult', function(){ 
   console.log($(this).data("world"));
 });
 </script>
