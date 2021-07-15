@@ -16,7 +16,7 @@ $worldExists = false;
 if (!empty($desiredWorld)) {
     foreach ($worldList as $world) {
         if ($worldExists) continue;
-        if ($desiredWorld == $world['world']) $worldExists = true;
+        if ($desiredWorld == $world->world) $worldExists = true;
     }
 
     $x = 0;
