@@ -61,7 +61,7 @@
               <input type="text" id="worldSearch"
               class="focus:ring-gray-600 ring ring-gray-600 bg-gray-700 flex-1 block h-12 rounded-lg text-sm px-6 mx-2 text-gray-300" placeholder="Goblin, Hades, etc.">
           </div>
-          <div class="mx-auto place-items-center justify-center bg-gray-800 rounded-lg mt-5" id="searchResults">
+          <div class="mx-auto place-items-center justify-center bg-gray-800 rounded-lg mt-5 ring ring-gray-600" id="searchResults">
           </div>
       </div>
       </div>
@@ -97,7 +97,7 @@ $("#worldSearch").keyup(function() {
     searchResults.show();
 
     for (let result of results) {
-      searchResults.append("<div class='worldSearchResult flex mx-auto px-5 rounded-lg hover:bg-gray-700' data-world='" + result.item.world
+      searchResults.append("<div class='worldSearchResult flex mx-auto px-5 hover:bg-gray-700 py-2 px-5 cursor-pointer' data-world='" + result.item.world
       + "'><div class='w-3/6 text-gray-300'>" + result.item.world
       + "</div><div class='w-3/6 text-gray-400'>(" + result.item.group + " in " + result.item.region + ")</div></div>");
     }
