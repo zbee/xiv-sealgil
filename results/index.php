@@ -126,7 +126,7 @@ if (!empty($desiredWorld)) {
 
         //Calculate the sort value
         $sort = $lastSoldPrice - (0.9 * (int)$item[0]);
-        $sort *= $salesVelocity;
+        $sort *= $salesVelocity * 100;
 
         //Append raw data
         $resultData[] = [
