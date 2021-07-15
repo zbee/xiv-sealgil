@@ -23,7 +23,7 @@
                 </svg>
               </span>
               <p class="ml-2">
-                Searchable selection of servers
+                Searchable selection of worlds to find yours in
               </p>
             </li>
             <li class="flex items-start">
@@ -33,7 +33,7 @@
                 </svg>
               </span>
               <p class="ml-2">
-              Live market data to determine the highest-gil item that is actively getting sold
+                Live market data to determine the highest-gil item that is actively getting sold
               </p>
             </li>
             <li class="flex items-start">
@@ -58,8 +58,10 @@
           </div>
           <br><hr class="border-gray-600"><br>
           <div class="flex mx-auto items-center justify-center">
-              <input type="text" id="realmSearch"
-              class="focus:ring-yellow-600 ring ring-gray-600 bg-gray-700 flex-1 block h-12 rounded-lg text-sm px-6 mx-2 text-gray-300" placeholder="Goblin, or Cystal">          </div>
+              <input type="text" id="worldSearch"
+              class="focus:ring-gray-600 ring ring-gray-600 bg-gray-700 flex-1 block h-12 rounded-lg text-sm px-6 mx-2 text-gray-300" placeholder="Goblin, Hades, etc.">
+          </div>
+          <div class="flex mx-auto items-center justify-center bg-gray" id="searchResults">
           </div>
       </div>
       </div>
@@ -69,6 +71,9 @@
 <script src="/assets/js/serverList.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6"></script>
 <script>
+let searchResults = $("#searchResults");
+searchResults.hide();
+
 const options = {
   keys: [
     "world"
@@ -78,12 +83,25 @@ const options = {
 
 const fuse = new Fuse(serverList, options);
 
-let searchResults = "";
-
-$("#realmSearch").keyup(function() {
+//When someone types in the world search
+$("#worldSearch").keyup(function() {
   let results = fuse.search($(this).val());
 
-  console.log(results);
+  searchResults.empty();
+
+  if ($(this).val() == "") {
+    return searchResults.hide();
+  }
+
+  if (results.length > 0) {
+    searchResults.show();
+
+    for (let result of results) {
+      console.log(result);
+      searchResults.append("
+      <div class='flex-1 block'></div>");
+    }
+  }
 });
 </script>
 
