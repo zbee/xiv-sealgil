@@ -2,7 +2,7 @@
 require('../assets/php/header.php');
 require('../assets/php/exchangeItems.php');
 
-date_default_timezone_set("UTC");
+date_default_timezone_set("GMT");
 
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
