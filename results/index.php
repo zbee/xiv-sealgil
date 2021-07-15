@@ -12,7 +12,10 @@ $worldExists = false;
 
 //Check world exists
 if (!empty($desiredWorld)) {
-    if ($desiredWorld == $world['world']) $worldExists = true;
+    foreach ($worldList as $world) {
+        if ($worldExists) continue;
+        if ($desiredWorld == $world['world']) $worldExists = true;
+    }
 
     $x = 0;
 
@@ -29,9 +32,9 @@ if (!empty($desiredWorld)) {
         echo json_encode($item) . '<br>';
 
         $output = json_decode(curl_exec($curl));
-        echo var_dump($output['listings']);
+        var_dump($output['listings']);
         echo '<br>';
-        echo var_dump($output['recentHistory']);
+        var_dump($output['recentHistory']);
 
         foreach ($item as $key => $trash) echo "$key<br>";
 
