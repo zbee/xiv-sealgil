@@ -180,8 +180,8 @@ if (!empty($desiredWorld)) {
                 $result['efficiency'],
                 $result['itemRankTab'] . ', ' . $result['itemTab'],
                 $result['sales']['twoDays'],
-                $results['speed'],
-                'sort: ' . $results['sort'],
+                $result['speed'],
+                'sort: ' . $result['sort'],
             ]
         );
 }
