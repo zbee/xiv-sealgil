@@ -15,8 +15,8 @@ if (!empty($desiredWorld)) {
     if ($desiredWorld == $world['world']) $worldExists = true;
 
     foreach ($exchangeItems as $itemID => $item) {
-        echo $itemID;
-        echo $item;
+        echo '<br>' . $itemID . ' <br>';
+        echo json_encode($item);
     }
 }
 
