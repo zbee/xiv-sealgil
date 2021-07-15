@@ -4,37 +4,29 @@ require('../assets/php/exchangeItems.php');
 
 date_default_timezone_set('Europe/London');
 
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
-
 //The styling for each item
 $itemFormat = <<<FRM
-<div class="mx-auto place-items-center justify-center bg-gray-800 rounded-lg mt-5 py-2 px-5 box-border flex text-gray-300">
+<div class="mx-auto place-items-center justify-center bg-gray-800 rounded-lg mt-5 py-2 px-5 box-border flex flex-wrap text-gray-300">
 
-    <div class="w-6/12 text-left">
+    <div class="w-3/6 text-left">
         #ITEM_NAME
     </div>
 
-    <div class="w-4/12 text-justify font-bold" alt="The price you should list this on the market for.">
-        #PRICE
+    <div class="w-2/6 text-justify font-bold" alt="The price you should list this on the market for.">
+        #PRICEgil
     </div>
 
-    <div class="w-2/12 text-right text-xs" alt="The efficiency of the Seals to Gil conversion.">
+    <div class="w-1/6 text-right text-xs" alt="The efficiency of the Seals to Gil conversion.">
         #EFFICIENCY
     </div>
 
-    <br>
-
-    <div class="w-6/12 text-left text-gray-400 text-sm" alt="Where you can find the item for purchase in the GC Seal exchange window.">
+    <div class="w-3/6 text-left text-gray-400 text-sm" alt="Where you can find the item for purchase in the GC Seal exchange window.">
         #ITEM_INFO
     </div>
 
-    <div class="w-6/12 text-right text-sm" alt="An arbitrary scale for how often this item is selling. Specifically: #SOLD sold in the last 2 days">
+    <div class="w-3/6 text-right text-sm" alt="An arbitrary scale for how often this item is selling. Specifically: #SOLD sold in the last 2 days">
         #SPEED
     </div>
-
-    #EXTRA
 
 </div>
 FRM;
@@ -171,7 +163,6 @@ if (!empty($desiredWorld)) {
                 '#ITEM_INFO',
                 '#SOLD',
                 '#SPEED',
-                '#EXTRA',
             ],
             [
                 $result['itemName'],
@@ -179,8 +170,7 @@ if (!empty($desiredWorld)) {
                 $result['efficiency'],
                 $result['itemRankTab'] . ', ' . $result['itemTab'],
                 $result['sales']['twoDays'],
-                $result['speed'],
-                'sort: ' . $result['sort'],
+                $salesVelocityRanking[$result['speed']],
             ],
             $itemFormat
         );
