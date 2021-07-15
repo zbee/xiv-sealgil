@@ -9,13 +9,13 @@ $worldName = '';
 $resultData = [];
 $results = '';
 $salesVelocityRanking = [
-    'flowing',
-    'perfect',
-    'great',
-    'good',
-    'okay',
-    'meh',
-    '?'
+    '<p class="text-red-600">?</p>',
+    '<p class="text-red-500">meh</p>',
+    '<p class="text-gray-300">okay</p>',
+    '<p class="text-yellow-300">good</p>',
+    '<p class="text-green-300">great</p>',
+    '<p class="text-pink-400">perfect</p>',
+    '<p class="text-purple-400">flowing!</p>',
 ];
 
 //Load data
@@ -74,19 +74,13 @@ if (!empty($desiredWorld)) {
         }
 
         //Rate the sale speed
-        $salesVelocity = '?';
-        if ($salesLastTwoDay > 10)
-            $salesVelocity = '<p class="text-red-500">meh</p>';
-        if ($salesLastTwoDay > 20)
-            $salesVelocity = '<p class="text-gray-300">okay</p>';
-        if ($salesLastDay > 10)
-            $salesVelocity = '<p class="text-yellow-300">good</p>';
-        if ($salesLastDay > 25)
-            $salesVelocity = '<p class="text-green-300">great</p>';
-        if ($salesLastThreeHour > 20)
-            $salesVelocity = '<p class="text-pink-400">perfect</p>';
-        if ($salesLastThreeHour > 30)
-            $salesVelocity = '<p class="text-purple-400">flowing!</p>';
+        $salesVelocity = 0;
+        if ($salesLastTwoDay > 10) $salesVelocity = 1;
+        if ($salesLastTwoDay > 20) $salesVelocity = 2;
+        if ($salesLastDay > 10) $salesVelocity = 3;
+        if ($salesLastDay > 25) $salesVelocity = 4;
+        if ($salesLastThreeHour > 20) $salesVelocity = 5;
+        if ($salesLastThreeHour > 30) $salesVelocity = 6;
 
         //Make sure to close out the API request
         curl_close($curl);
