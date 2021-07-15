@@ -24,7 +24,7 @@ if (!empty($desiredWorld)) {
     foreach ($exchangeItems as $itemID => $item) {
         $x++;
 
-        if ($x > 1) continue;
+        //if ($x > 1) continue;
 
         $curl = curl_init();
         curl_setopt($curl, CURLOPT_URL, 'https://universalis.app/api/' . $desiredWorld . '/' . $itemID);
@@ -35,17 +35,17 @@ if (!empty($desiredWorld)) {
         echo '<br>listings';
 
         $output = json_decode(curl_exec($curl));
-        var_dump($output->listings);
-        echo '<br>';
-        echo '<br>recenthistory';
-        var_dump($output->recentHistory);
+        //var_dump($output->listings);
+        //echo '<br>';
+        //echo '<br>recenthistory';
+        //var_dump($output->recentHistory);
         echo '<br>';
         echo '<br>velocity';
         var_dump($output->regularSaleVelocity);
-        echo '<br>';
-        echo '<br>properties';
+        //echo '<br>';
+        //echo '<br>properties';
 
-        var_dump(array_keys((array)$output));
+        //var_dump(array_keys((array)$output));
         echo '<br>';
 
         curl_close($curl);
