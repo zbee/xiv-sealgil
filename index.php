@@ -10,40 +10,46 @@
           </div>
           <div class="pt-4 text-base leading-6 space-y-4 text-gray-300 sm:text-lg sm:leading-7">
           <p>
-              Textasync. A new form of media. Easy. Free. <br>
-              Your audio transcribed with typography.
+              XIV SealGil is a FFXIV tool to get market prices from
+              <a href="https://universalis.app" class="underline">universalis</a>
+              and tell you the grand company seal-purchasable item that
+              is being actively sold for the most gil.
           </p>
           <ul class="list-disc space-y-2">
-              <li class="flex items-start">
+            <li class="flex items-start">
               <span class="h-6 flex items-center sm:h-7">
-                  <svg class="flex-shrink-0 h-5 w-5 text-yellow-600" viewBox="0 0 20 20" fill="currentColor">
+                <svg class="flex-shrink-0 h-5 w-5 text-yellow-600" viewBox="0 0 20 20" fill="currentColor">
                   <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
-                  </svg>
+                </svg>
               </span>
               <p class="ml-2">
-                  Review and update your text transcription while following along in a simple audio waveform
+                Searchable selection of servers
               </p>
-              </li>
-              <li class="flex items-start">
+            </li>
+            <li class="flex items-start">
               <span class="h-6 flex items-center sm:h-7">
-                  <svg class="flex-shrink-0 h-5 w-5 text-yellow-600" viewBox="0 0 20 20" fill="currentColor">
+                <svg class="flex-shrink-0 h-5 w-5 text-yellow-600" viewBox="0 0 20 20" fill="currentColor">
                   <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
-                  </svg>
+                </svg>
               </span>
               <p class="ml-2">
-                  Choose custom colors and effects for your text
+              Live market data to determine the highest-gil item that is actively getting sold
               </p>
-              </li>
-              <li class="flex items-start">
+            </li>
+            <li class="flex items-start">
               <span class="h-6 flex items-center sm:h-7">
-                  <svg class="flex-shrink-0 h-5 w-5 text-yellow-600" viewBox="0 0 20 20" fill="currentColor">
+                <svg class="flex-shrink-0 h-5 w-5 text-yellow-600" viewBox="0 0 20 20" fill="currentColor">
                   <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
-                  </svg>
+                </svg>
               </span>
-              <p class="ml-2">Select unique animations for how the text appears, and whether it should be rendered as a full video or an overlay</p>
-              </li>
+              <p class="ml-2">
+                Orders items by their sell-price separated by whether they're selling, recommends what to spend seals on
+              </p>
+            </li>
           </ul>
-          <p>Perfect for creating visuals for your speech, joking around with custom narration over a video, or generating fresh appearances for closed captions.</p>
+          <p>
+            Perfect for making some spare gil when you have extra company seals.
+          </p>
           </div>
           <div class="pt-6 text-base leading-6 font-bold sm:text-lg sm:leading-7">
           <div class="flex mx-auto items-center justify-center">
