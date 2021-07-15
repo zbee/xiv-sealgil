@@ -105,7 +105,7 @@ $("#worldSearch").keyup(function() {
 });
 
 $(".worldSearchResult").on('click', function () {
-  console.log($(this).date("world"));
+  console.log($(this).data("world"));
 });
 </script>
 
