@@ -1,8 +1,10 @@
 
-                <div class="pt-6 text-xs text-gray-600">
-                    Built by <a href="https://keybase.io/zbee" class="underline">Ethan</a>,
+                <div class="pt-6 text-xs text-gray-500">
+                    Built by <a href="https://keybase.io/zbee" class="underline">Ethan</a> (during patch <b>5.57</b>),
                     Using data from <a href="https://universalis.app" class="underline">Universalis</a>,
-                    Using resource information from FFXIV (during 5.57)
+                    Using resources from <a href="https://www.finalfantasyxiv.com" class="underline">FFXIV</a>,
+                    Running on <a href="https://heroku.com" class="underline">Heroku</a> with
+                    <a href="https://tailwindcss.com" class="underline">tailwindcss</a>
                 </div>
 
             </div>
