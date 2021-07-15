@@ -125,7 +125,8 @@ if (!empty($desiredWorld)) {
         curl_close($curl);
 
         //Calculate the sort value
-        $sort = $lastSoldPrice - (0.9 * (int)$item[0]) * 0.3;
+        $specialLastSold = ($lastSoldPrice > 10000 ? 10000 : $lastSoldPrice) / 10000;
+        $sort = $specialLastSold - (0.9 * (int)$item[0]);
         $sort *= $efficiency/3;
         $sort *= $salesVelocity/6;
         $sort = (int)$sort;
