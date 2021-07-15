@@ -75,7 +75,8 @@ const options = {
   keys: [
     "world",
     "group"
-  ]
+  ],
+  includeScore: true,
 };
 
 const fuse = new Fuse(serverList, options);
@@ -83,7 +84,9 @@ const fuse = new Fuse(serverList, options);
 let searchResults = "";
 
 $("#realmSearch").keyup(function() {
-  console.log(fuse.search($(this).val()))
+  let results = fuse.search($(this).val());
+
+  console.log(results);
 });
 </script>
 
