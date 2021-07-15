@@ -29,7 +29,12 @@ if (!empty($desiredWorld)) {
         echo json_encode($item) . '<br>';
 
         $output = json_decode(curl_exec($curl));
-        echo var_dump($output);
+        echo var_dump($output['listings']);
+        echo '<br>';
+        echo var_dump($output['recentHistory']);
+
+        foreach ($item as $key => $trash) echo "$key<br>";
+
         curl_close($curl);
     }
 }
