@@ -5,7 +5,7 @@ require('../assets/php/exchangeItems.php');
 //Set up variables
 $desiredWorld = $_GET['world'];
 $worldExists = false;
-$world = '';
+$worldName = '';
 $resultData = [];
 $results = '';
 $salesVelocityRanking = [
@@ -31,7 +31,7 @@ if (!empty($desiredWorld)) {
         if ($worldExists) continue;
         if ($desiredWorld == $world->world) {
             $worldExists = true;
-            $world = $world->world;
+            $worldName = $world->world;
         }
     }
 
@@ -40,7 +40,7 @@ if (!empty($desiredWorld)) {
 
         //Request the item market information from Universalis
         $curl = curl_init();
-        curl_setopt($curl, CURLOPT_URL, 'https://universalis.app/api/' . $world . '/' . $itemID);
+        curl_setopt($curl, CURLOPT_URL, 'https://universalis.app/api/' . $worldName . '/' . $itemID);
         curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
 
         //Set up variables
@@ -120,7 +120,7 @@ if (empty($desiredWorld) || !$worldExists)
 <br><br>
 
 <p>
-    These are the results for the most efficient items to buy with seals and sell for gil on the market on <u><?php echo $world; ?></u> - excluding furniture items.
+    These are the results for the most efficient items to buy with seals and sell for gil on the market on <u><?php echo $worldName; ?></u> - excluding furniture items.
     <br>
     The top result is the most efficient item that is selling the quickest you can just nab and start selling now.
     <br><br>
