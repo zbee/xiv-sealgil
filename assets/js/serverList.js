@@ -1,337 +1,337 @@
 let serverList = [
     {
-        "name": "Aegis",
-        "datacenter": "Japanese",
-        "realm": "Elemental"
+        "world": "Aegis",
+        "region": "Japanese",
+        "group": "Elemental"
     },
     {
-        "name": "Atomos",
-        "datacenter": "Japanese",
-        "realm": "Elemental"
+        "world": "Atomos",
+        "region": "Japanese",
+        "group": "Elemental"
     },
     {
-        "name": "Carbuncle",
-        "datacenter": "Japanese",
-        "realm": "Elemental"
+        "world": "Carbuncle",
+        "region": "Japanese",
+        "group": "Elemental"
     },
     {
-        "name": "Garuda",
-        "datacenter": "Japanese",
-        "realm": "Elemental"
+        "world": "Garuda",
+        "region": "Japanese",
+        "group": "Elemental"
     },
     {
-        "name": "Gungnir",
-        "datacenter": "Japanese",
-        "realm": "Elemental"
+        "world": "Gungnir",
+        "region": "Japanese",
+        "group": "Elemental"
     },
     {
-        "name": "Kujata",
-        "datacenter": "Japanese",
-        "realm": "Elemental"
+        "world": "Kujata",
+        "region": "Japanese",
+        "group": "Elemental"
     },
     {
-        "name": "Ramuh",
-        "datacenter": "Japanese",
-        "realm": "Elemental"
+        "world": "Ramuh",
+        "region": "Japanese",
+        "group": "Elemental"
     },
     {
-        "name": "Tonberry",
-        "datacenter": "Japanese",
-        "realm": "Elemental"
+        "world": "Tonberry",
+        "region": "Japanese",
+        "group": "Elemental"
     },
     {
-        "name": "Typhon",
-        "datacenter": "Japanese",
-        "realm": "Elemental"
+        "world": "Typhon",
+        "region": "Japanese",
+        "group": "Elemental"
     },
     {
-        "name": "Unicorn",
-        "datacenter": "Japanese",
-        "realm": "Elemental"
+        "world": "Unicorn",
+        "region": "Japanese",
+        "group": "Elemental"
     },
     {
-        "name": "Alexander",
-        "datacenter": "Japanese",
-        "realm": "Gaia"
+        "world": "Alexander",
+        "region": "Japanese",
+        "group": "Gaia"
     },
     {
-        "name": "Bahamut",
-        "datacenter": "Japanese",
-        "realm": "Gaia"
+        "world": "Bahamut",
+        "region": "Japanese",
+        "group": "Gaia"
     },
     {
-        "name": "Durandal",
-        "datacenter": "Japanese",
-        "realm": "Gaia"
+        "world": "Durandal",
+        "region": "Japanese",
+        "group": "Gaia"
     },
     {
-        "name": "Fenrir",
-        "datacenter": "Japanese",
-        "realm": "Gaia"
+        "world": "Fenrir",
+        "region": "Japanese",
+        "group": "Gaia"
     },
     {
-        "name": "Ifrit",
-        "datacenter": "Japanese",
-        "realm": "Gaia"
+        "world": "Ifrit",
+        "region": "Japanese",
+        "group": "Gaia"
     },
     {
-        "name": "Ridill",
-        "datacenter": "Japanese",
-        "realm": "Gaia"
+        "world": "Ridill",
+        "region": "Japanese",
+        "group": "Gaia"
     },
     {
-        "name": "Tiamat",
-        "datacenter": "Japanese",
-        "realm": "Gaia"
+        "world": "Tiamat",
+        "region": "Japanese",
+        "group": "Gaia"
     },
     {
-        "name": "Ultima",
-        "datacenter": "Japanese",
-        "realm": "Gaia"
+        "world": "Ultima",
+        "region": "Japanese",
+        "group": "Gaia"
     },
     {
-        "name": "Valefor",
-        "datacenter": "Japanese",
-        "realm": "Gaia"
+        "world": "Valefor",
+        "region": "Japanese",
+        "group": "Gaia"
     },
     {
-        "name": "Yojimbo",
-        "datacenter": "Japanese",
-        "realm": "Gaia"
+        "world": "Yojimbo",
+        "region": "Japanese",
+        "group": "Gaia"
     },
     {
-        "name": "Zeromus",
-        "datacenter": "Japanese",
-        "realm": "Gaia"
+        "world": "Zeromus",
+        "region": "Japanese",
+        "group": "Gaia"
     },
     {
-        "name": "Anima",
-        "datacenter": "Japanese",
-        "realm": "Mana"
+        "world": "Anima",
+        "region": "Japanese",
+        "group": "Mana"
     },
     {
-        "name": "Asura",
-        "datacenter": "Japanese",
-        "realm": "Mana"
+        "world": "Asura",
+        "region": "Japanese",
+        "group": "Mana"
     },
     {
-        "name": "Belias",
-        "datacenter": "Japanese",
-        "realm": "Mana"
+        "world": "Belias",
+        "region": "Japanese",
+        "group": "Mana"
     },
     {
-        "name": "Chocobo",
-        "datacenter": "Japanese",
-        "realm": "Mana"
+        "world": "Chocobo",
+        "region": "Japanese",
+        "group": "Mana"
     },
     {
-        "name": "Hades",
-        "datacenter": "Japanese",
-        "realm": "Mana"
+        "world": "Hades",
+        "region": "Japanese",
+        "group": "Mana"
     },
     {
-        "name": "Ixion",
-        "datacenter": "Japanese",
-        "realm": "Mana"
+        "world": "Ixion",
+        "region": "Japanese",
+        "group": "Mana"
     },
     {
-        "name": "Mandragora",
-        "datacenter": "Japanese",
-        "realm": "Mana"
+        "world": "Mandragora",
+        "region": "Japanese",
+        "group": "Mana"
     },
     {
-        "name": "Masamune",
-        "datacenter": "Japanese",
-        "realm": "Mana"
+        "world": "Masamune",
+        "region": "Japanese",
+        "group": "Mana"
     },
     {
-        "name": "Pandaemonium",
-        "datacenter": "Japanese",
-        "realm": "Mana"
+        "world": "Pandaemonium",
+        "region": "Japanese",
+        "group": "Mana"
     },
     {
-        "name": "Shinryu",
-        "datacenter": "Japanese",
-        "realm": "Mana"
+        "world": "Shinryu",
+        "region": "Japanese",
+        "group": "Mana"
     },
     {
-        "name": "Titan",
-        "datacenter": "Japanese",
-        "realm": "Mana"
+        "world": "Titan",
+        "region": "Japanese",
+        "group": "Mana"
     },
     {
-        "name": "Balmung",
-        "datacenter": "North America",
-        "realm": "Crystal"
+        "world": "Balmung",
+        "region": "North America",
+        "group": "Crystal"
     },
     {
-        "name": "Brynhildr",
-        "datacenter": "North America",
-        "realm": "Crystal"
+        "world": "Brynhildr",
+        "region": "North America",
+        "group": "Crystal"
     },
     {
-        "name": "Coeurl",
-        "datacenter": "North America",
-        "realm": "Crystal"
+        "world": "Coeurl",
+        "region": "North America",
+        "group": "Crystal"
     },
     {
-        "name": "Diabolos",
-        "datacenter": "North America",
-        "realm": "Crystal"
+        "world": "Diabolos",
+        "region": "North America",
+        "group": "Crystal"
     },
     {
-        "name": "Goblin",
-        "datacenter": "North America",
-        "realm": "Crystal"
+        "world": "Goblin",
+        "region": "North America",
+        "group": "Crystal"
     },
     {
-        "name": "Malboro",
-        "datacenter": "North America",
-        "realm": "Crystal"
+        "world": "Malboro",
+        "region": "North America",
+        "group": "Crystal"
     },
     {
-        "name": "Mateus",
-        "datacenter": "North America",
-        "realm": "Crystal"
+        "world": "Mateus",
+        "region": "North America",
+        "group": "Crystal"
     },
     {
-        "name": "Zalera",
-        "datacenter": "North America",
-        "realm": "Crystal"
+        "world": "Zalera",
+        "region": "North America",
+        "group": "Crystal"
     },
     {
-        "name": "Adamantoise",
-        "datacenter": "North America",
-        "realm": "Aether"
+        "world": "Adamantoise",
+        "region": "North America",
+        "group": "Aether"
     },
     {
-        "name": "Faerie",
-        "datacenter": "North America",
-        "realm": "Aether"
+        "world": "Faerie",
+        "region": "North America",
+        "group": "Aether"
     },
     {
-        "name": "Gilgamesh",
-        "datacenter": "North America",
-        "realm": "Aether"
+        "world": "Gilgamesh",
+        "region": "North America",
+        "group": "Aether"
     },
     {
-        "name": "Jenova",
-        "datacenter": "North America",
-        "realm": "Aether"
+        "world": "Jenova",
+        "region": "North America",
+        "group": "Aether"
     },
     {
-        "name": "Midgardsormr",
-        "datacenter": "North America",
-        "realm": "Aether"
+        "world": "Midgardsormr",
+        "region": "North America",
+        "group": "Aether"
     },
     {
-        "name": "Sargatanas",
-        "datacenter": "North America",
-        "realm": "Aether"
+        "world": "Sargatanas",
+        "region": "North America",
+        "group": "Aether"
     },
     {
-        "name": "Siren",
-        "datacenter": "North America",
-        "realm": "Aether"
+        "world": "Siren",
+        "region": "North America",
+        "group": "Aether"
     },
     {
-        "name": "Behemoth",
-        "datacenter": "North America",
-        "realm": "Primal"
+        "world": "Behemoth",
+        "region": "North America",
+        "group": "Primal"
     },
     {
-        "name": "Excalibur",
-        "datacenter": "North America",
-        "realm": "Primal"
+        "world": "Excalibur",
+        "region": "North America",
+        "group": "Primal"
     },
     {
-        "name": "Exodus",
-        "datacenter": "North America",
-        "realm": "Primal"
+        "world": "Exodus",
+        "region": "North America",
+        "group": "Primal"
     },
     {
-        "name": "Famfrit",
-        "datacenter": "North America",
-        "realm": "Primal"
+        "world": "Famfrit",
+        "region": "North America",
+        "group": "Primal"
     },
     {
-        "name": "Hyperion",
-        "datacenter": "North America",
-        "realm": "Primal"
+        "world": "Hyperion",
+        "region": "North America",
+        "group": "Primal"
     },
     {
-        "name": "Lamia",
-        "datacenter": "North America",
-        "realm": "Primal"
+        "world": "Lamia",
+        "region": "North America",
+        "group": "Primal"
     },
     {
-        "name": "Leviathan",
-        "datacenter": "North America",
-        "realm": "Primal"
+        "world": "Leviathan",
+        "region": "North America",
+        "group": "Primal"
     },
     {
-        "name": "Ultros",
-        "datacenter": "North America",
-        "realm": "Primal"
+        "world": "Ultros",
+        "region": "North America",
+        "group": "Primal"
     },
     {
-        "name": "Cerberus",
-        "datacenter": "European",
-        "realm": "Chaos"
+        "world": "Cerberus",
+        "region": "European",
+        "group": "Chaos"
     },
     {
-        "name": "Louisoix",
-        "datacenter": "European",
-        "realm": "Chaos"
+        "world": "Louisoix",
+        "region": "European",
+        "group": "Chaos"
     },
     {
-        "name": "Moogle",
-        "datacenter": "European",
-        "realm": "Chaos"
+        "world": "Moogle",
+        "region": "European",
+        "group": "Chaos"
     },
     {
-        "name": "Omega",
-        "datacenter": "European",
-        "realm": "Chaos"
+        "world": "Omega",
+        "region": "European",
+        "group": "Chaos"
     },
     {
-        "name": "Ragnarok",
-        "datacenter": "European",
-        "realm": "Chaos"
+        "world": "Ragnarok",
+        "region": "European",
+        "group": "Chaos"
     },
     {
-        "name": "Spriggan",
-        "datacenter": "European",
-        "realm": "Chaos"
+        "world": "Spriggan",
+        "region": "European",
+        "group": "Chaos"
     },
     {
-        "name": "Lich",
-        "datacenter": "European",
-        "realm": "Light"
+        "world": "Lich",
+        "region": "European",
+        "group": "Light"
     },
     {
-        "name": "Odin",
-        "datacenter": "European",
-        "realm": "Light"
+        "world": "Odin",
+        "region": "European",
+        "group": "Light"
     },
     {
-        "name": "Phoenix",
-        "datacenter": "European",
-        "realm": "Light"
+        "world": "Phoenix",
+        "region": "European",
+        "group": "Light"
     },
     {
-        "name": "Shiva",
-        "datacenter": "European",
-        "realm": "Light"
+        "world": "Shiva",
+        "region": "European",
+        "group": "Light"
     },
     {
-        "name": "Twintania",
-        "datacenter": "European",
-        "realm": "Light"
+        "world": "Twintania",
+        "region": "European",
+        "group": "Light"
     },
     {
-        "name": "Zodiark",
-        "datacenter": "European",
-        "realm": "Light"
+        "world": "Zodiark",
+        "region": "European",
+        "group": "Light"
     }
 ];

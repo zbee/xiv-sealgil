@@ -69,9 +69,23 @@
 </div>
 
 <script src="/assets/js/serverList.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6"></script>
 <script>
-console.log(serverList);
+const options = {
+  keys: [
+    "world",
+    "group"
+  ]
+};
+
+const fuse = new Fuse(serverList, options);
+
+let searchResults = "";
+
+$("#realmSearch").keyup(function() {
+  console.log(fuse.search($(this).content()))
+});
 </script>
 
 <?php require('./assets/php/footer.php'); ?>
