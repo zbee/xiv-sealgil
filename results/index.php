@@ -38,6 +38,8 @@ if (!empty($desiredWorld)) {
     //Loop through all items you can get from exchanging seals
     foreach ($exchangeItems as $itemID => $item) {
 
+        var_dump($item);
+
         //Request the item market information from Universalis
         $curl = curl_init();
         curl_setopt($curl, CURLOPT_URL, 'https://universalis.app/api/' . $worldName . '/' . $itemID);
@@ -85,7 +87,7 @@ if (!empty($desiredWorld)) {
         //Make sure to close out the API request
         curl_close($curl);
 
-        //Append raw data (mostly)
+        //Append raw data
         $resultData[] = [
             'itemID' => $itemID,
             'itemName' => $item[1],
@@ -94,7 +96,7 @@ if (!empty($desiredWorld)) {
             'price' => $price,
             'lastSoldFor' => $lastSoldPrice,
             'efficiency' => $efficiency,
-            'speed' => $salesVelocity, //formatted
+            'speed' => $salesVelocity,
             'sales' => [
                 'threeHours' => $salesLastThreeHour,
                 'oneDay' => $salesLastDay,
