@@ -68,4 +68,10 @@
   </div>
 </div>
 
+<script src="/assets/js/serverList.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6"></script>
+<script>
+console.log(serverList);
+</script>
+
 <?php require('./assets/php/footer.php'); ?>

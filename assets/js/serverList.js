@@ -1,4 +1,4 @@
-[
+let serverList = [
     {
         "name": "Aegis",
         "datacenter": "Japanese",
@@ -333,5 +333,5 @@
         "name": "Zodiark",
         "datacenter": "European",
         "realm": "Light"
-    },
-]
+    }
+];
