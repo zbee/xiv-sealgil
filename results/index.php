@@ -65,7 +65,6 @@ if (!empty($desiredWorld)) {
         $efficiency = 0;
 
         //Determine the price to use
-
         if ($output->listings != null) {
             $price = (int)$output->listings[0]->pricePerUnit;
             $price--;
@@ -79,10 +78,10 @@ if (!empty($desiredWorld)) {
         //Determine the recent sales
         foreach ($output->recentHistory as $sale) {
             $timestamp = $sale->timestamp;
-            var_dump([$timestamp, $time, $twoDaysAgo]);
             if ($timestamp > $twoDaysAgo) $salesLastTwoDay++;
             if ($timestamp > $oneDayAgo) $salesLastDay++;
             if ($timestamp > $threeHoursAgo) $salesLastThreeHour++;
+            var_dump([$salesLastTwoDay, $salesLastDay, $salesLastThreeHour]);
         }
 
         //Rate the sale speed
