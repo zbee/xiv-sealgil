@@ -6,7 +6,7 @@
       <div class="relative px-4 py-10 bg-indigo-400 shadow-lg sm:rounded-3xl sm:p-20">
       <div class="max-w-md mx-auto">
           <div>
-          <img src="/img/textasync.png" class="h-32 mx-auto" />
+          <img src="/assets/img/sealgil.png" class="h-32 mx-auto" />
           </div>
           <div class="pt-4 text-base leading-6 space-y-4 text-gray-300 sm:text-lg sm:leading-7">
           <p>
