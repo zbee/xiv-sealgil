@@ -127,7 +127,7 @@ if (!empty($desiredWorld)) {
         //Calculate the sort value
         $specialLastSold = ($lastSoldPrice > 10000 ? 10000 : $lastSoldPrice) / 10000;
         $sort = $specialLastSold - (0.9 * (int)$item[0])/5000;
-        $sort *= $efficiency;
+        $sort *= $efficiency/3;
         $sort *= $salesVelocity;
 
         //Append raw data
