@@ -1,162 +1,162 @@
 let serverList = [
     {
         "world": "Aegis",
-        "region": "Japanese",
+        "region": "Japan",
         "group": "Elemental"
     },
     {
         "world": "Atomos",
-        "region": "Japanese",
+        "region": "Japan",
         "group": "Elemental"
     },
     {
         "world": "Carbuncle",
-        "region": "Japanese",
+        "region": "Japan",
         "group": "Elemental"
     },
     {
         "world": "Garuda",
-        "region": "Japanese",
+        "region": "Japan",
         "group": "Elemental"
     },
     {
         "world": "Gungnir",
-        "region": "Japanese",
+        "region": "Japan",
         "group": "Elemental"
     },
     {
         "world": "Kujata",
-        "region": "Japanese",
+        "region": "Japan",
         "group": "Elemental"
     },
     {
         "world": "Ramuh",
-        "region": "Japanese",
+        "region": "Japan",
         "group": "Elemental"
     },
     {
         "world": "Tonberry",
-        "region": "Japanese",
+        "region": "Japan",
         "group": "Elemental"
     },
     {
         "world": "Typhon",
-        "region": "Japanese",
+        "region": "Japan",
         "group": "Elemental"
     },
     {
         "world": "Unicorn",
-        "region": "Japanese",
+        "region": "Japan",
         "group": "Elemental"
     },
     {
         "world": "Alexander",
-        "region": "Japanese",
+        "region": "Japan",
         "group": "Gaia"
     },
     {
         "world": "Bahamut",
-        "region": "Japanese",
+        "region": "Japan",
         "group": "Gaia"
     },
     {
         "world": "Durandal",
-        "region": "Japanese",
+        "region": "Japan",
         "group": "Gaia"
     },
     {
         "world": "Fenrir",
-        "region": "Japanese",
+        "region": "Japan",
         "group": "Gaia"
     },
     {
         "world": "Ifrit",
-        "region": "Japanese",
+        "region": "Japan",
         "group": "Gaia"
     },
     {
         "world": "Ridill",
-        "region": "Japanese",
+        "region": "Japan",
         "group": "Gaia"
     },
     {
         "world": "Tiamat",
-        "region": "Japanese",
+        "region": "Japan",
         "group": "Gaia"
     },
     {
         "world": "Ultima",
-        "region": "Japanese",
+        "region": "Japan",
         "group": "Gaia"
     },
     {
         "world": "Valefor",
-        "region": "Japanese",
+        "region": "Japan",
         "group": "Gaia"
     },
     {
         "world": "Yojimbo",
-        "region": "Japanese",
+        "region": "Japan",
         "group": "Gaia"
     },
     {
         "world": "Zeromus",
-        "region": "Japanese",
+        "region": "Japan",
         "group": "Gaia"
     },
     {
         "world": "Anima",
-        "region": "Japanese",
+        "region": "Japan",
         "group": "Mana"
     },
     {
         "world": "Asura",
-        "region": "Japanese",
+        "region": "Japan",
         "group": "Mana"
     },
     {
         "world": "Belias",
-        "region": "Japanese",
+        "region": "Japan",
         "group": "Mana"
     },
     {
         "world": "Chocobo",
-        "region": "Japanese",
+        "region": "Japan",
         "group": "Mana"
     },
     {
         "world": "Hades",
-        "region": "Japanese",
+        "region": "Japan",
         "group": "Mana"
     },
     {
         "world": "Ixion",
-        "region": "Japanese",
+        "region": "Japan",
         "group": "Mana"
     },
     {
         "world": "Mandragora",
-        "region": "Japanese",
+        "region": "Japan",
         "group": "Mana"
     },
     {
         "world": "Masamune",
-        "region": "Japanese",
+        "region": "Japan",
         "group": "Mana"
     },
     {
         "world": "Pandaemonium",
-        "region": "Japanese",
+        "region": "Japan",
         "group": "Mana"
     },
     {
         "world": "Shinryu",
-        "region": "Japanese",
+        "region": "Japan",
         "group": "Mana"
     },
     {
         "world": "Titan",
-        "region": "Japanese",
+        "region": "Japan",
         "group": "Mana"
     },
     {
@@ -276,62 +276,62 @@ let serverList = [
     },
     {
         "world": "Cerberus",
-        "region": "European",
+        "region": "Europe",
         "group": "Chaos"
     },
     {
         "world": "Louisoix",
-        "region": "European",
+        "region": "Europe",
         "group": "Chaos"
     },
     {
         "world": "Moogle",
-        "region": "European",
+        "region": "Europe",
         "group": "Chaos"
     },
     {
         "world": "Omega",
-        "region": "European",
+        "region": "Europe",
         "group": "Chaos"
     },
     {
         "world": "Ragnarok",
-        "region": "European",
+        "region": "Europe",
         "group": "Chaos"
     },
     {
         "world": "Spriggan",
-        "region": "European",
+        "region": "Europe",
         "group": "Chaos"
     },
     {
         "world": "Lich",
-        "region": "European",
+        "region": "Europe",
         "group": "Light"
     },
     {
         "world": "Odin",
-        "region": "European",
+        "region": "Europe",
         "group": "Light"
     },
     {
         "world": "Phoenix",
-        "region": "European",
+        "region": "Europe",
         "group": "Light"
     },
     {
         "world": "Shiva",
-        "region": "European",
+        "region": "Europe",
         "group": "Light"
     },
     {
         "world": "Twintania",
-        "region": "European",
+        "region": "Europe",
         "group": "Light"
     },
     {
         "world": "Zodiark",
-        "region": "European",
+        "region": "Europe",
         "group": "Light"
     }
 ];
