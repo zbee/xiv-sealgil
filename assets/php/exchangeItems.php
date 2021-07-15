@@ -16,8 +16,8 @@ $exchangeItems = [
     5594 => [
         12,
         "Grade 1 Dark Matter",
-        "1st tab =>
-        Materiel",
+        "1st tab",
+        "Materiel",
     ],
     5595 => [
         34,
@@ -46,8 +46,8 @@ $exchangeItems = [
     4567 => [
         1710,
         "Smelling Saltse",
-        "1st tab =>
-        Materiel",
+        "1st tab",
+        "Materiel",
     ],
     456 => [
         1010,

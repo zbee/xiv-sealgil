@@ -64,7 +64,7 @@ if (!empty($desiredWorld)) {
         $lastSoldPrice = (int)$output->recentHistory[0]->pricePerUnit;
 
         //Determine the efficiency
-        $efficiency = $price / $item[0];
+        $efficiency = $price / (int)$item[0];
         $efficiency = round($efficiency, 2);
 
         //Determine the recent sales
