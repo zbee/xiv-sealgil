@@ -98,8 +98,7 @@ $("#worldSearch").keyup(function() {
 
     for (let result of results) {
       console.log(result);
-      searchResults.append("
-      <div class='flex-1 block'></div>");
+      searchResults.append("<div class='flex-1 block'></div>");
     }
   }
 });
