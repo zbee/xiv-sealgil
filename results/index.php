@@ -42,6 +42,7 @@ if (!empty($desiredWorld)) {
         $curl = curl_init();
         curl_setopt($curl, CURLOPT_URL, 'https://universalis.app/api/' . $worldName . '/' . $itemID);
         curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
+        $output = json_decode(curl_exec($curl));
 
         //Set up variables
         $salesLastThreeHour = 0;
