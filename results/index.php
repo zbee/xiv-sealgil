@@ -22,7 +22,7 @@ if (!empty($desiredWorld)) {
         if ($x > 1) continue;
 
         $curl = curl_init();
-        curl_setopt($curl, CURLOPT_URL, "https://universalis.app/api/");
+        curl_setopt($curl, CURLOPT_URL, 'https://universalis.app/api/' . $desiredWorld . '/' . $itemID);
         curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
 
         echo '<br>' . $itemID . '<br>';
@@ -39,6 +39,8 @@ if (empty($desiredWorld) || !$worldExists)
     $results = "Sorry, an error has occurred (world not found or empty).";
 
 ?>
+
+<br>
 
 <?php echo $_GET['world']; ?>
 
