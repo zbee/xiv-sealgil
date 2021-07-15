@@ -44,6 +44,7 @@ $desiredWorld = $_GET['world'];
 $worldExists = false;
 $worldName = '';
 $resultData = [];
+$resultSelection = [];
 $results = '';
 $salesVelocityRanking = [
     '<p class="text-red-600">?</p>',
@@ -148,18 +149,41 @@ if (!empty($desiredWorld)) {
 
     $sort_keys = array_column($resultData, 'sort');
     array_multisort($sort_keys, SORT_DESC, $resultData);
-    $highest_average = [$resultData[0], $resultData[1]];
-    var_dump($highest_average);
+    $resultSelection[] = $resultData[0];
+    $resultSelection[] = $resultData[1];
 
     $efficiency_keys = array_column($resultData, 'efficiency');
     array_multisort($efficiency_keys, SORT_DESC, $resultData);
-    $highest_efficiency = [$resultData[0], $resultData[1]];
-    var_dump($highest_efficiency);
+    $resultSelection[] = $resultData[0];
+    $resultSelection[] = $resultData[1];
 
     $speed_keys = array_column($resultData, 'speed');
     array_multisort($speed_keys, SORT_DESC, $resultData);
-    $highest_speed = [$resultData[0], $resultData[1]];
-    var_dump($highest_speed);
+    $resultSelection[] = $resultData[0];
+    $resultSelection[] = $resultData[1];
+
+    foreach ($resultSelection as $result)
+        $results .= str_replace(
+            $itemFormat,
+            [
+                '#ITEM_NAME',
+                '#PRICE',
+                '#EFFICIENCY',
+                '#ITEM_INFO',
+                '#SOLD',
+                '#SPEED',
+                '#EXTRA',
+            ],
+            [
+                $result['itemName'],
+                $result['price'],
+                $result['efficiency'],
+                $result['itemRankTab'] . ', ' . $result['itemTab'],
+                $result['sales']['twoDays'],
+                $results['speed'],
+                'sort: ' . $results['sort'],
+            ]
+        );
 }
 
 //Error out on nonexistant world
