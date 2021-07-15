@@ -30,13 +30,18 @@ if (!empty($desiredWorld)) {
 
         echo '<br>' . $itemID . '<br>';
         echo json_encode($item) . '<br>';
+        echo '<br>';
 
         $output = json_decode(curl_exec($curl));
         var_dump($output->listings);
         echo '<br>';
+        echo '<br>';
         var_dump($output->recentHistory);
+        echo '<br>';
+        echo '<br>';
 
-        foreach ($item as $key => $trash) echo "$key<br>";
+        var_dump(get_object_vars($test));
+        echo '<br>';
 
         curl_close($curl);
     }
