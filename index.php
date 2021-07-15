@@ -61,19 +61,20 @@
               <input type="text" id="worldSearch"
               class="focus:ring-gray-600 ring ring-gray-600 bg-gray-700 flex-1 block h-12 rounded-lg text-sm px-6 mx-2 text-gray-300" placeholder="Goblin, Hades, etc.">
           </div>
-          <div class="mx-auto place-items-center justify-center bg-gray-800 rounded-lg mt-5 border-4 border-gray-600 box-border" id="searchResults">
+          <div class="mx-auto place-items-center justify-center bg-gray-800 rounded-lg mt-5 border-4 border-gray-600 box-border hidden" id="searchResults">
           </div>
       </div>
       </div>
   </div>
 </div>
 
-<script src="/assets/js/serverList.js"></script>
+<script src="/assets/js/worldList.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6"></script>
 <script>
+//Load search results jQuery element
 let searchResults = $("#searchResults");
-searchResults.hide();
 
+//Search only world names and order by score
 const options = {
   keys: [
     "world"
@@ -81,18 +82,23 @@ const options = {
   includeScore: true,
 };
 
+//Load the fuzzy searcher
 const fuse = new Fuse(serverList, options);
 
 //When someone types in the world search
-$("#worldSearch").keyup(function() {
+$("#worldSearch").keyup(function(e) {
+  //Fuzzy search the list of worlds
   let results = fuse.search($(this).val());
 
+  //Clear out search results
   searchResults.empty();
 
+  //Hide search results with no value
   if ($(this).val() == "") {
     return searchResults.hide();
   }
 
+  //If there are search results, render them
   if (results.length > 0) {
     searchResults.show();
 
@@ -102,10 +108,19 @@ $("#worldSearch").keyup(function() {
       + "</div><div class='w-3/6 text-gray-400'>(" + result.item.group + " in " + result.item.region + ")</div></div>");
     }
   }
+  //Hide search results with no results
+  else {
+    return searchResults.hide();
+  }
+
+  //Select the first world if enter was hit
+  if (e.key === "Enter") {
+    $("#searchResults div").first().click();
+  }
 });
 
-$(document).on('click', '.worldSearchResult', function(){ 
-  console.log($(this).data("world"));
+$(document).on('click', '.worldSearchResult', function(){
+  document.location.href = '/results?world=' + $(this).data("world");
 });
 </script>
 
