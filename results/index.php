@@ -40,7 +40,7 @@ if (!empty($desiredWorld)) {
         echo '<br>';
         echo '<br>properties';
 
-        var_dump(get_object_vars($output));
+        var_dump(array_keys((array)$output));
         echo '<br>';
 
         curl_close($curl);
