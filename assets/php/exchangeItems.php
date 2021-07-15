@@ -7,9 +7,9 @@ $exchangeItems = [
         "1st tab",
         "Materiel",
     ],
-    4566 => [
+    4568 => [
         290,
-        "Echo Dropse",
+        "Echo Drops",
         "1st tab",
         "Materiel",
     ],
@@ -378,12 +378,6 @@ $exchangeItems = [
         "Coke",
         "3rd tab",
         "Materials",
-    ],
-    10112 => [
-        600,
-        "Urushi",
-        "3rd tab",
-        "Materials"
     ]
 ];
 

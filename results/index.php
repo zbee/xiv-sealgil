@@ -32,20 +32,14 @@ if (!empty($desiredWorld)) {
 
         echo '<br>' . $itemID . '<br>';
         echo json_encode($item) . '<br>';
+
         echo '<br>listings';
-
         $output = json_decode(curl_exec($curl));
-        //var_dump($output->listings);
-        //echo '<br>';
-        //echo '<br>recenthistory';
-        //var_dump($output->recentHistory);
+        var_dump($output->listings);
         echo '<br>';
-        echo '<br>velocity';
-        var_dump($output->regularSaleVelocity);
-        //echo '<br>';
-        //echo '<br>properties';
+        echo '<br>recenthistory';
+        var_dump($output->recentHistory);
 
-        //var_dump(array_keys((array)$output));
         echo '<br>';
 
         curl_close($curl);
