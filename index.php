@@ -73,8 +73,7 @@
 <script>
 const options = {
   keys: [
-    "world",
-    "group"
+    "world"
   ],
   includeScore: true,
 };
