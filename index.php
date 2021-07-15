@@ -58,9 +58,9 @@
           </div>
           <br><hr class="border-indigo-300"><br>
           <div class="flex mx-auto items-center justify-center">
-              <input type="email" name="email" id="newsletter-email"
-              class="focus:ring-yellow-600 ring ring-indigo-300 bg-gray-400 flex-1 block w-3/5 h-12 rounded-lg text-sm px-6 mx-2 text-indigo-50" placeholder="example@test.com">
-              <a class="bg-gradient-to-t from-red-500 to-yellow-600 hover:from-indigo-400 hover:to-indigo-400 w-2/5 h-12 text-sm flex items-center justify-center rounded-lg text-indigo-900 cursor-pointer ring ring-indigo-300 hover:text-indigo-50">Get Early Access</a>
+              <input type="text" name="email" id="realmSearch"
+              class="focus:ring-yellow-600 ring ring-gray-600 bg-gray-700 flex-1 block w-3/5 h-12 rounded-lg text-sm px-6 mx-2 text-indigo-50" placeholder="example@test.com">
+              <a class="bg-gradient-to-t from-yellow-600 to-yellow-400 hover:bg-gray-700 w-2/5 h-12 text-sm flex items-center justify-center rounded-lg text-indigo-900 cursor-pointer ring ring-indigo-300 hover:text-indigo-50">Get Early Access</a>
           </div>
           </div>
       </div>
