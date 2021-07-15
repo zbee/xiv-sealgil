@@ -38,6 +38,9 @@ if (!empty($desiredWorld)) {
         echo '<br>recenthistory';
         var_dump($output->recentHistory);
         echo '<br>';
+        echo '<br>velocity';
+        var_dump($output->regularSaleVelocity);
+        echo '<br>';
         echo '<br>properties';
 
         var_dump(array_keys((array)$output));
