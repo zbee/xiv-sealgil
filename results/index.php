@@ -4,6 +4,8 @@ require('../assets/php/exchangeItems.php');
 
 //Load data
 $worldList = file_get_contents('../assets/js/worldList.js');
+$worldList = str_replace('let serverList = ', '', $worldList);
+$worldList = str_replace(';', '', $worldList);
 $worldList = json_decode($worldList);
 
 $desiredWorld = $_GET['world'];
