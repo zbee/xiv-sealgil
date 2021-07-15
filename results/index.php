@@ -29,8 +29,7 @@ if (!empty($desiredWorld)) {
         echo json_encode($item) . '<br>';
 
         $output = json_decode(curl_exec($curl));
-        echo json_encode($output, JSON_PRETTY_PRINT);
-
+        echo var_dump($output);
         curl_close($curl);
     }
 }
