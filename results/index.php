@@ -14,7 +14,7 @@ $worldExists = false;
 if (!empty($desiredWorld)) {
     if ($desiredWorld == $world['world']) $worldExists = true;
 
-    $x = 1;
+    $x = 0;
 
     foreach ($exchangeItems as $itemID => $item) {
         $x++;
