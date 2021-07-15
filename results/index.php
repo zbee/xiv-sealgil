@@ -28,7 +28,8 @@ if (!empty($desiredWorld)) {
         echo '<br>' . $itemID . '<br>';
         echo json_encode($item) . '<br>';
 
-        echo curl_exec($curl);
+        $output = json_decode(curl_exec($curl));
+        echo json_encode($output, JSON_PRETTY_PRINT);
 
         curl_close($curl);
     }
@@ -40,7 +41,7 @@ if (empty($desiredWorld) || !$worldExists)
 
 ?>
 
-<br>
+<br><br>
 
 <?php echo $_GET['world']; ?>
 
