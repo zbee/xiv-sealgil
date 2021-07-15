@@ -130,6 +130,8 @@ if (!empty($desiredWorld)) {
         $sort *= $efficiency/3;
         $sort *= $salesVelocity;
 
+        $sort = $efficiency * $salesVelocity;
+
         //Append raw data
         $resultData[] = [
             'itemID' => $itemID,
