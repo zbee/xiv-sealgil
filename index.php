@@ -59,9 +59,7 @@
           <br><hr class="border-gray-600"><br>
           <div class="flex mx-auto items-center justify-center">
               <input type="text" id="realmSearch"
-              class="focus:ring-yellow-600 ring ring-gray-600 bg-gray-700 flex-1 block w-3/5 h-12 rounded-lg text-sm px-6 mx-2 text-gray-300" placeholder="Goblin, or Cystal">
-              <a class="bg-gradient-to-t from-yellow-600 to-yellow-400 hover:bg-gray-700 w-2/5 h-12 text-sm flex items-center justify-center rounded-lg text-gray-800 cursor-pointer ring ring-gray-600 hover:text-gray-300">Get Early Access</a>
-          </div>
+              class="focus:ring-yellow-600 ring ring-gray-600 bg-gray-700 flex-1 block h-12 rounded-lg text-sm px-6 mx-2 text-gray-300" placeholder="Goblin, or Cystal">          </div>
           </div>
       </div>
       </div>
