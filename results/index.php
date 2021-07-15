@@ -125,11 +125,6 @@ if (!empty($desiredWorld)) {
         curl_close($curl);
 
         //Calculate the sort value
-        $specialLastSold = ($lastSoldPrice > 10000 ? 10000 : $lastSoldPrice) / 10000;
-        $sort = $specialLastSold - (0.9 * (int)$item[0])/5000;
-        $sort *= $efficiency/3;
-        $sort *= $salesVelocity;
-
         $sort = $efficiency * $salesVelocity;
 
         //Append raw data
@@ -151,10 +146,21 @@ if (!empty($desiredWorld)) {
         ];
     }
 
-    $keys = array_column($resultData, 'sort');
-    array_multisort($keys, SORT_DESC, $resultData);
+    $sort_keys = array_column($resultData, 'sort');
+    $efficiency_keys = array_column($resultData, 'efficiency');
+    $speed_keys = array_column($resultData, 'speed');
 
-    var_dump($resultData);
+    array_multisort($sort_keys, SORT_DESC, $resultData);
+    $highest_average = [$resultData[0], $resultData[1]];
+    var_dump($highest_average);
+
+    array_multisort($efficiency_keys, SORT_DESC, $resultData);
+    $highest_efficiency = [$resultData[0], $resultData[1]];
+    var_dump($highest_efficiency);
+
+    array_multisort($speed_keys, SORT_DESC, $resultData);
+    $highest_speed = [$resultData[0], $resultData[1]];
+    var_dump($highest_speed);
 }
 
 //Error out on nonexistant world
