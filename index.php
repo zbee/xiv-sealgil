@@ -83,7 +83,7 @@ const fuse = new Fuse(serverList, options);
 let searchResults = "";
 
 $("#realmSearch").keyup(function() {
-  console.log(fuse.search($(this).content()))
+  console.log(fuse.search($(this).text()))
 });
 </script>
 
