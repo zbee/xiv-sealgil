@@ -8,6 +8,37 @@ ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
+//The styling for each item
+$itemFormat = <<<FRM
+<div class="mx-auto place-items-center justify-center bg-gray-800 rounded-lg mt-5 py-2 px-5 box-border flex text-gray-300">
+
+    <div class="w-6/12 text-left">
+        #ITEM_NAME
+    </div>
+
+    <div class="w-4/12 text-justify font-bold" alt="The price you should list this on the market for.">
+        #PRICE
+    </div>
+
+    <div class="w-2/12 text-right text-xs" alt="The efficiency of the Seals to Gil conversion.">
+        #EFFICIENCY
+    </div>
+
+    <br>
+
+    <div class="w-6/12 text-left text-gray-400 text-sm" alt="Where you can find the item for purchase in the GC Seal exchange window.">
+        #ITEM_INFO
+    </div>
+
+    <div class="w-6/12 text-right text-sm" alt="An arbitrary scale for how often this item is selling. Specifically: #SOLD sold in the last 2 days">
+        #SPEED
+    </div>
+
+    #EXTRA
+
+</div>
+FRM;
+
 //Set up variables
 $desiredWorld = $_GET['world'];
 $worldExists = false;
@@ -44,8 +75,6 @@ if (!empty($desiredWorld)) {
     //Loop through all items you can get from exchanging seals
     foreach ($exchangeItems as $itemID => $item) {
 
-        var_dump($item);
-
         //Request the item market information from Universalis
         $curl = curl_init();
         curl_setopt($curl, CURLOPT_URL, 'https://universalis.app/api/' . $worldName . '/' . $itemID);
@@ -81,7 +110,6 @@ if (!empty($desiredWorld)) {
             if ($timestamp > $twoDaysAgo) $salesLastTwoDay++;
             if ($timestamp > $oneDayAgo) $salesLastDay++;
             if ($timestamp > $threeHoursAgo) $salesLastThreeHour++;
-            var_dump([$salesLastTwoDay, $salesLastDay, $salesLastThreeHour]);
         }
 
         //Rate the sale speed
@@ -96,10 +124,15 @@ if (!empty($desiredWorld)) {
         //Make sure to close out the API request
         curl_close($curl);
 
+        //Calculate the sort value
+        $sort = $lastSoldPrice - (0.9 * (int)$item[0]);
+        $sort *= $salesVelocity;
+
         //Append raw data
         $resultData[] = [
             'itemID' => $itemID,
             'itemName' => $item[1],
+            'sort' => $sort,
             'itemRankTab' => $item[2],
             'itemTab' => $item[3],
             'price' => $price,
@@ -113,6 +146,9 @@ if (!empty($desiredWorld)) {
             ]
         ];
     }
+
+    $keys = array_column($resultData, 'sort');
+    array_multisort($keys, SORT_DESC, $resultData);
 
     var_dump($resultData);
 }
@@ -130,7 +166,9 @@ if (empty($desiredWorld) || !$worldExists)
     <br>
     The top result is the most efficient item that is selling the quickest you can just nab and start selling now.
     <br><br>
-    If you're intent on getting more information, you can scroll through the list and see the NAME of the item (and in parentheses, the rank tab that the item is in, and which material tab it is in), PRICE to sell at per item (1 gil under the lowest listing; in parentheses next to the price is the exact price the item last sold for), EFFICIENCY to see gil per seal, SPEED to get a rating of how much has been selling (worst to best: red, gray, yellow, green, pink, purple), and SALES (per time period).
+    If you're intent on getting more information, you can scroll through the list and see the NAME of the item (and in parentheses, the rank tab that the item is in,
+    and which material tab it is in), PRICE to sell at per item (1 gil under the lowest listing; in parentheses next to the price is the exact price the item last sold for),
+    EFFICIENCY to see gil per seal, SPEED to get a rating of how much has been selling (worst to best: red, gray, yellow, green, pink, purple), and SALES (per time period).
 </p>
 
 <div class="mx-auto place-items-center justify-center">
