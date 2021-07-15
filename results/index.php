@@ -86,12 +86,12 @@ if (!empty($desiredWorld)) {
 
         //Rate the sale speed
         $salesVelocity = 0;
-        if ($salesLastTwoDay > 10) $salesVelocity = 1;
-        if ($salesLastTwoDay > 20) $salesVelocity = 2;
-        if ($salesLastDay > 10) $salesVelocity = 3;
-        if ($salesLastDay > 25) $salesVelocity = 4;
-        if ($salesLastThreeHour > 20) $salesVelocity = 5;
-        if ($salesLastThreeHour > 30) $salesVelocity = 6;
+        if ($salesLastTwoDay > 5) $salesVelocity = 1;
+        if ($salesLastTwoDay > 10) $salesVelocity = 2;
+        if ($salesLastDay > 5) $salesVelocity = 3;
+        if ($salesLastDay > 10) $salesVelocity = 4;
+        if ($salesLastThreeHour > 10) $salesVelocity = 5;
+        if ($salesLastThreeHour > 20) $salesVelocity = 6;
 
         //Make sure to close out the API request
         curl_close($curl);
