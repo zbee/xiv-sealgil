@@ -1,5 +1,5 @@
-<?php require('./assets/php/header.php'); ?>
+<?php require('../assets/php/header.php'); ?>
 
-<?= $_GET['world'] ?>
+<?php echo $_GET['world']; ?>
 
-<?php require('./assets/php/footer.php'); ?>
+<?php require('../assets/php/footer.php'); ?>
