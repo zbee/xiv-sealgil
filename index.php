@@ -97,8 +97,9 @@ $("#worldSearch").keyup(function() {
     searchResults.show();
 
     for (let result of results) {
-      console.log(result.item.world);
-      searchResults.append("<div class='flex-1 block'></div>");
+      searchResults.append("<div class='worldSearchResult flex-1 block' data-world='" + result.item.world
+      + "'><div class='w-3/6 text-gray-300'>" + result.item.world
+      + "</div><div class='w-3/6 text-gray-400'>(" + result.item.group + " in " + result.item.region + ")</div></div>");
     }
   }
 });
