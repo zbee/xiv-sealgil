@@ -63,8 +63,11 @@ if (!empty($desiredWorld)) {
         $efficiency = 0;
 
         //Determine the price to use
-        $price = (int)$output->listings[0]->pricePerUnit;
-        $price--;
+
+        if ($output->listings != null) {
+            $price = (int)$output->listings[0]->pricePerUnit;
+            $price--;
+        }
         $lastSoldPrice = (int)$output->recentHistory[0]->pricePerUnit;
 
         //Determine the efficiency
