@@ -77,6 +77,7 @@ if (!empty($desiredWorld)) {
         //Determine the recent sales
         foreach ($output->recentHistory as $sale) {
             $timestamp = $sale->timestamp;
+            var_dump([$timestamp, $time, $twoDaysAgo]);
             if ($timestamp > $twoDaysAgo) $salesLastTwoDay++;
             if ($timestamp > $oneDayAgo) $salesLastDay++;
             if ($timestamp > $threeHoursAgo) $salesLastThreeHour++;
