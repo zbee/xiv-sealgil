@@ -122,7 +122,7 @@ $("#worldSearch").keyup(function(e) {
 });
 
 $(document).on('click', '.worldSearchResult', function(){
-  document.location.href = 'http://xiv-sealgil.herokuapp.com/results?world=' + $(this).data("world");
+  document.location.href = 'https://xiv-sealgil.herokuapp.com/results?world=' + $(this).data("world");
 });
 </script>
 
