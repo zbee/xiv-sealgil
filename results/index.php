@@ -170,7 +170,7 @@ if (!empty($desiredWorld)) {
             'lastUpload' => $output->lastUploadTime,
             'withinFive' => $withinFive,
             'withinThirty' =>$withinThirty,
-            'coloring' => $Coloring
+            'coloring' => $coloring
         ];
     }
     //Item Loop Over
