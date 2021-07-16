@@ -226,9 +226,10 @@ if (!empty($desiredWorld)) {
 }
 
 //Error out on nonexistant world
-if (empty($desiredWorld) || !$worldExists)
-    $results = "Sorry, an error has occurred (world not found or empty).";
-
+if (empty($desiredWorld) || !$worldExists) {
+    $results = 'Sorry, an error has occurred (world not found or empty).';
+    $recentUpload = 'None';
+}
 ?>
 
 <br><br>
@@ -238,7 +239,7 @@ if (empty($desiredWorld) || !$worldExists)
     <br>
     The top result is the most efficient item that is selling the quickest you can just nab and start selling now.
     <br>
-    Data age available now: 
+    Data age available now: <?php echo $recentUpload; ?>.
 </p>
 
 <div class="mx-auto place-items-center justify-center">
