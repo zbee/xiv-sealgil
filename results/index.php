@@ -256,7 +256,7 @@ if (!empty($desiredWorld)) {
         //Format item
         $results .= str_replace(
             [
-                '#COLORING',
+                '#COLOR',
                 '#ITEM_NAME',
                 '#LAST_UPLOAD',
                 '#PRICE',
@@ -293,7 +293,7 @@ if (empty($desiredWorld) || !$worldExists) {
     These are the results for the most efficient items to buy with seals and sell for gil on the market on <u><?php echo $worldName; ?></u> - excluding furniture items.
     <br>
     Data age available now: <u><?php echo $recentUpload; ?></u>
-    <br><br>
+    <br>
     <span class="text-xs">Hover over any field for more information; the title also has the data upload date, and the colored sales text includes recent sales.</span>
 </p>
 
