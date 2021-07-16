@@ -243,7 +243,7 @@ if (!empty($desiredWorld)) {
             ],
             [
                 $result['itemName'],
-                date("Y-m-d H:i:s", $result['lastUpload']),
+                date("m-d H:i", $result['lastUpload']),
                 $result['price'],
                 $result['efficiency'],
                 $result['itemRankTab'] . ', ' . $result['itemTab'],
