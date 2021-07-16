@@ -23,5 +23,3 @@
         <div>
             <a href="https://xiv-sealgil.herokuapp.com/"><img src="/assets/img/sealgil.png" class="h-32 mx-auto" /></a>
         </div>
-        
-        <div class="pt-4 text-base leading-6 space-y-4 text-gray-300 sm:text-lg sm:leading-7">

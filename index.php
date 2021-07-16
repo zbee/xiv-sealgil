@@ -1,5 +1,7 @@
 <?php require('./assets/php/header.php'); ?>
 
+<div class="pt-4 text-base leading-6 space-y-4 text-gray-300 sm:text-lg sm:leading-7">
+
 <p>
     XIV SealGil is a FFXIV tool to get market prices from
     <a href="https://universalis.app" class="underline">universalis</a>

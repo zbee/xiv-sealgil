@@ -287,10 +287,12 @@ if (empty($desiredWorld) || !$worldExists) {
 }
 ?>
 
+<div class="pt-4 text-md text-gray-300">
+
 <br><br>
 
 <p>
-    These are the results for the most efficient items to buy with seals and sell for gil on the market on <u><?php echo $worldName; ?></u> - excluding furniture items.
+    These are the most efficient items to buy convern from seals to gil on <u><?php echo $worldName; ?></u> - excluding furniture.
     <br>
     Data age available now: <u><?php echo $recentUpload; ?></u>
     <br>
