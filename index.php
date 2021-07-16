@@ -108,7 +108,7 @@ $("#worldSearch").keyup(function(e) {
       x++;
     }
 
-    searchResults.append("<span class='text-xs block mx-auto text-right'>(press enter to select the top server, or click one)</span>");
+    searchResults.append("<span class='text-xs block mx-auto text-right px-2'>(press enter to select the top server, or click one)</span>");
   }
   //Hide search results with no results
   else {
