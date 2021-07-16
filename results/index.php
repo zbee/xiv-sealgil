@@ -165,6 +165,7 @@ if (!empty($desiredWorld)) {
     //Item Loop Over
 
     //Prune non-selling items
+    var_dump([$goodVelocityItems, $highVelocityItems]);
     //If there are a reasonable amount of good velocity items, prune the lowest
     if ($goodVelocityItems > 20) {
         foreach ($resultData as $key => $item)
