@@ -54,7 +54,7 @@
   <div class="mx-auto place-items-center justify-center bg-gray-800 rounded-lg mt-5 border-4 border-gray-600 box-border hidden" id="searchResults"></div>
 </div>
 
-<p>
+<p class="text-sm">
   <i>This works better if you contribute to universalis</i>. If you use ACT or otherwise load addons for FFXIV, 
   <a href="https://universalis.app/contribute" class="underline">click here to start contributing</a>. (ACT plugin is the simplest)
 </p>
