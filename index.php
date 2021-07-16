@@ -107,6 +107,8 @@ $("#worldSearch").keyup(function(e) {
 
       x++;
     }
+
+    searchResults.append("<span class='text-xs'>press enter to select the top server, or click one</span>");
   }
   //Hide search results with no results
   else {
