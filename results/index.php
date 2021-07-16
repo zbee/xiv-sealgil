@@ -293,8 +293,8 @@ if (empty($desiredWorld) || !$worldExists) {
     These are the results for the most efficient items to buy with seals and sell for gil on the market on <u><?php echo $worldName; ?></u> - excluding furniture items.
     <br>
     Data age available now: <u><?php echo $recentUpload; ?></u>
-    <br>
-    Hover over any field for more information; the title also has the data upload date, and the colored sales text includes recent sales.
+    <br><br>
+    <span class="text-xs">Hover over any field for more information; the title also has the data upload date, and the colored sales text includes recent sales.</span>
 </p>
 
 <br><hr class="border-gray-600"><br>
