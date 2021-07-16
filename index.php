@@ -40,6 +40,9 @@
 </ul>
 <p>
   Perfect for making some spare gil when you have extra company seals.
+  <br>
+  <i>This works better if you contribute to universalis</i>. If you use ACT or otherwise load addons for FFXIV, 
+  <a href="https://universalis.app/contribute" class="underline">click here to start contributing</a>. (ACT plugin is the simplest)
 </p>
 
 <div class="pt-6 text-base leading-6 font-bold sm:text-lg sm:leading-7">

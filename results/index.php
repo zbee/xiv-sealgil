@@ -12,19 +12,19 @@ $itemFormat = <<<FRM
         #ITEM_NAME
     </div>
 
-    <div class="w-2/6 text-justify font-bold" alt="The price you should list this on the market for.">
+    <div class="w-2/6 text-justify font-bold" title="The price you should list this on the market for.">
         #PRICEgil
     </div>
 
-    <div class="w-1/6 text-right text-xs" alt="The efficiency of the Seals to Gil conversion.">
+    <div class="w-1/6 text-right text-xs" title="The efficiency of the Seals to Gil conversion.">
         #EFFICIENCY
     </div>
 
-    <div class="w-3/6 text-left text-gray-400 text-sm" alt="Where you can find the item for purchase in the GC Seal exchange window.">
+    <div class="w-3/6 text-left text-gray-400 text-sm" title="Where you can find the item for purchase in the GC Seal exchange window.">
         #ITEM_INFO
     </div>
 
-    <div class="w-3/6 text-right text-sm" alt="An arbitrary scale for how often this item is selling. Specifically: #SOLD sold in the last 2 days">
+    <div class="w-3/6 text-right text-sm" title="An arbitrary scale for how often this item is selling. Specifically: #SOLD sold in the last 2 days">
         #SPEED
     </div>
 
@@ -48,6 +48,14 @@ $salesVelocityRanking = [
     '<p class="text-pink-400">perfect</p>',
     '<p class="text-purple-400">flowing!</p>',
 ];
+$time = time();
+$fiveMinutesAgo = $time - (60*5);
+$thirtyMinutesAgo = $time - (60*5);
+$threeHoursAgo = $time - (60*60*3);
+$twoDaysAgo = $time - (60*60*24*2);
+$oneDayAgo = $time - (60*60*24);
+$uploadedWithinFive = 0;
+$uploadedWithinThirty = 0;
 
 //Load data
 $worldList = file_get_contents('../assets/js/worldList.js');
@@ -79,13 +87,11 @@ if (!empty($desiredWorld)) {
         $salesLastThreeHour = 0;
         $salesLastDay = 0;
         $salesLastTwoDay = 0;
-        $time = time();
-        $threeHoursAgo = $time - (60*60*3);
-        $twoDaysAgo = $time - (60*60*24*2);
-        $oneDayAgo = $time - (60*60*24);
         $price = 0;
         $lastSoldPrice = 0;
         $efficiency = 0;
+        $withinFive = false;
+        $withinThirty = false;
 
         //Determine the price to use
         if ($output->listings != null) {
@@ -115,7 +121,15 @@ if (!empty($desiredWorld)) {
         if ($salesLastThreeHour > 10) $salesVelocity = 5;
         if ($salesLastThreeHour > 20) $salesVelocity = 6;
 
-        var_dump(get_object_vars($output));
+        //Check upload date
+        if ($output->lastUploadTime > $fiveMinutesAgo) {
+            $uploadedWithinFive++;
+            $withinFive = true;
+        }
+        if ($output->lastUploadTime > $thirtyMinutesAgo) {
+            $uploadedWithinThirty++;
+            $withinThirty = true;
+        }
 
         //Make sure to close out the API request
         curl_close($curl);
@@ -138,10 +152,41 @@ if (!empty($desiredWorld)) {
                 'threeHours' => $salesLastThreeHour,
                 'oneDay' => $salesLastDay,
                 'twoDays' => $salesLastTwoDay
-            ]
+            ],
+            'lastUpload' => $output->lastUploadTime,
+            'withinFive' => $withinFive,
+            'withinThirty' =>$withinThirty
         ];
     }
 
+    //Item Loop Over
+
+    //Determining if we can prune items without a recent upload time, and if we need to
+    $recentUpload = 'older than 30 minutes.';
+    if ($uploadedWithinThirty > 10 && $uploadedWithinFive < 50) {
+        $recentUpload = 'displayed are within last 30 minutes.';
+        $pruned = [];
+        $prune_keys = array_column($resultData, 'lastUpload');
+        array_multisort($prune_keys, SORT_DESC, $resultData);
+        $pruned[] = $resultData[0];
+        $pruned[] = $resultData[1];
+        $pruned[] = $resultData[2];
+        $pruned[] = $resultData[3];
+        $pruned[] = $resultData[4];
+        $pruned[] = $resultData[5];
+        $pruned[] = $resultData[6];
+        $pruned[] = $resultData[7];
+        $pruned[] = $resultData[8];
+        $pruned[] = $resultData[9];
+        $resultData = $pruned;
+    }
+    if ($uploadedWithinThirty > 30)  $recentUpload = 'most are within last 30 minutes.';
+    if ($uploadedWithinThirty > 50)  $recentUpload = 'all are within last 30 minutes.';
+    if ($uploadedWithinFive > 10)  $recentUpload = 'displayed are within last 5 minutes.';
+    if ($uploadedWithinFive > 30)  $recentUpload = 'most are within last 5 minutes.';
+    if ($uploadedWithinFive > 50)  $recentUpload = 'all are within last 5 minutes.';
+
+    //Choose top items to display, sorting by a key and then choosing the top two items three times
     $speed_keys = array_column($resultData, 'speed');
     array_multisort($speed_keys, SORT_DESC, $resultData);
     $resultSelection[] = $resultData[0];
@@ -157,6 +202,7 @@ if (!empty($desiredWorld)) {
     $resultSelection[] = $resultData[0];
     $resultSelection[] = $resultData[1];
 
+    //Format top items for display
     foreach ($resultSelection as $result)
         $results .= str_replace(
             [
@@ -191,6 +237,8 @@ if (empty($desiredWorld) || !$worldExists)
     These are the results for the most efficient items to buy with seals and sell for gil on the market on <u><?php echo $worldName; ?></u> - excluding furniture items.
     <br>
     The top result is the most efficient item that is selling the quickest you can just nab and start selling now.
+    <br>
+    Data age available now: 
 </p>
 
 <div class="mx-auto place-items-center justify-center">
