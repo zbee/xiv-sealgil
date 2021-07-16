@@ -17,7 +17,7 @@ $itemFormat = <<<FRM
     </div>
 
     <div class="w-1/6 text-right text-xs" title="The efficiency of the Seals to Gil conversion.">
-        #EFFICIENCY
+        #EFFICIENCY&eta;
     </div>
 
     <div class="w-3/6 text-left text-gray-400 text-sm" title="Where you can find the item for purchase in the GC Seal exchange window.">
