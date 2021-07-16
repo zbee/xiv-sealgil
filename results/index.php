@@ -6,7 +6,7 @@ date_default_timezone_set('Europe/London');
 
 //The styling for each item
 $itemFormat = <<<FRM
-<div class="mx-auto place-items-center justify-center bg-gray-800 rounded-lg mt-5 py-2 px-5 box-border flex flex-wrap text-gray-300">
+<div class="mx-auto place-items-center justify-center bg-#COLOR rounded-lg mt-5 py-2 px-5 box-border flex flex-wrap text-gray-300">
 
     <div class="w-3/6 text-left" title="The name of the item you might want to buy for seals and sell on the market. Last uploaded: #LAST_UPLOAD (server time)">
         #ITEM_NAME
@@ -46,6 +46,11 @@ $salesVelocityRanking = [
     '<p class="text-green-300">great</p>',
     '<p class="text-pink-400">perfect</p>',
     '<p class="text-purple-400">flowing!</p>',
+];
+$dateColoring = [
+    'gray-800',
+    'gray-900',
+    'yellow-900'
 ];
 $time = time();
 $fiveMinutesAgo = $time - (60*5);
@@ -93,6 +98,7 @@ if (!empty($desiredWorld)) {
         $efficiency = 0;
         $withinFive = false;
         $withinThirty = false;
+        $coloring = $dateColoring[2];
 
         //Determine the price to use
         if ($output->listings != null) {
@@ -135,6 +141,10 @@ if (!empty($desiredWorld)) {
             $withinThirty = true;
         }
 
+        //Determine age coloring
+        if ($output->lastUploadTime > $twoDaysAgo) $coloring = $dateColoring[1];
+        if ($output->lastUploadTime > $threeHoursAgo) $coloring = $dateColoring[0];
+
         //Make sure to close out the API request
         curl_close($curl);
 
@@ -159,7 +169,8 @@ if (!empty($desiredWorld)) {
             ],
             'lastUpload' => $output->lastUploadTime,
             'withinFive' => $withinFive,
-            'withinThirty' =>$withinThirty
+            'withinThirty' =>$withinThirty,
+            'coloring' => $Coloring
         ];
     }
     //Item Loop Over
@@ -199,6 +210,18 @@ if (!empty($desiredWorld)) {
         //Replace the data with the pruned data
         $resultData = $pruned;
     }
+    //If it's mostly pretty recent, prune the oldest
+    if ($uploadedWithinThirty > 50) {
+        foreach ($resultData as $key => $item)
+            if ($item['lastUpload'] < $thirtyMinutesAgo)
+                unset($resultData[$key]);
+    }
+    //If it's mostly very recent, prune the oldest
+    if ($uploadedWithinFive > 50) {
+        foreach ($resultData as $key => $item)
+            if ($item['lastUpload'] < $fiveMinutesAgo)
+                unset($resultData[$key]);
+    }
     if ($uploadedWithinThirty > 30)  $recentUpload = 'most are within last 30 minutes.';
     if ($uploadedWithinThirty > 50)  $recentUpload = 'all are within last 30 minutes.';
     if ($uploadedWithinFive > 10)  $recentUpload = 'displayed are within last 5 minutes.';
@@ -234,6 +257,7 @@ if (!empty($desiredWorld)) {
         //Format item
         $results .= str_replace(
             [
+                '#COLORING',
                 '#ITEM_NAME',
                 '#LAST_UPLOAD',
                 '#PRICE',
@@ -243,6 +267,7 @@ if (!empty($desiredWorld)) {
                 '#SPEED',
             ],
             [
+                $result['coloring'],
                 $result['itemName'],
                 date("m-d H:i", $result['lastUpload']),
                 $result['price'],
@@ -268,10 +293,9 @@ if (empty($desiredWorld) || !$worldExists) {
 <p>
     These are the results for the most efficient items to buy with seals and sell for gil on the market on <u><?php echo $worldName; ?></u> - excluding furniture items.
     <br>
-    The top result is the most efficient item that is selling the quickest you can just nab and start selling now.
-    <br>
     Data age available now: <u><?php echo $recentUpload; ?></u>
-    <br>Hover over any field for more information.
+    <br>
+    Hover over any field for more information; the title also has the data upload date, and the colored sales text includes recent sales.
 </p>
 
 <br><hr class="border-gray-600"><br>
