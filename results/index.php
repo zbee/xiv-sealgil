@@ -29,6 +29,7 @@ $itemFormat = <<<FRM
     </div>
 
 </div>
+#EXTRA
 FRM;
 
 //Set up variables
@@ -113,6 +114,8 @@ if (!empty($desiredWorld)) {
         if ($salesLastDay > 10) $salesVelocity = 4;
         if ($salesLastThreeHour > 10) $salesVelocity = 5;
         if ($salesLastThreeHour > 20) $salesVelocity = 6;
+
+        var_dump(get_object_vars($output));
 
         //Make sure to close out the API request
         curl_close($curl);
