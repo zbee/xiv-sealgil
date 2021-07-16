@@ -55,6 +55,8 @@ $twoDaysAgo = $time - (60*60*24*2);
 $oneDayAgo = $time - (60*60*24);
 $uploadedWithinFive = 0;
 $uploadedWithinThirty = 0;
+$highVelocityItems = 0;
+$goodVelocityItems = 0;
 
 //Load data
 $worldList = file_get_contents('../assets/js/worldList.js');
@@ -120,6 +122,9 @@ if (!empty($desiredWorld)) {
         if ($salesLastThreeHour > 10) $salesVelocity = 5;
         if ($salesLastThreeHour > 20) $salesVelocity = 6;
 
+        if ($salesVelocity > 3) $highVelocityItems++;
+        if ($salesVelocity > 2) $goodVelocityItems++;
+
         //Check upload date
         if ($output->lastUploadTime > $fiveMinutesAgo) {
             $uploadedWithinFive++;
@@ -157,26 +162,34 @@ if (!empty($desiredWorld)) {
             'withinThirty' =>$withinThirty
         ];
     }
-
     //Item Loop Over
 
-    //Determining if we can prune items without a recent upload time, and if we need to
+    //Prune non-selling items
+    //If it's mostly high velocity, prune all the lowest velocity
+    if ($highVelocityItems > 30) {
+        foreach ($resultData as $key => $item)
+            if ($item['speed'] < 1)
+                unset($resultData[$key]);
+    }
+    //If it's all good velocity, prune the two lowest velocities
+    if ($goodVelocityItems > 50) {
+        foreach ($resultData as $key => $item)
+            if ($item['speed'] < 2)
+                unset($resultData[$key]);
+    }
+
+    //Determining the age of the data set
     $recentUpload = 'older than 30 minutes.';
-    if ($uploadedWithinThirty > 10 && $uploadedWithinFive < 50) {
+    //Prune if the data set has recent information, but only if it's not mostly recent
+    if ($uploadedWithinThirty > 10 && $uploadedWithinThirty < 50 && $uploadedWithinFive < 30) {
         $recentUpload = 'displayed are within last 30 minutes.';
+        //As done below, sort by the upload date and choose only the top 10 items
         $pruned = [];
         $prune_keys = array_column($resultData, 'lastUpload');
         array_multisort($prune_keys, SORT_DESC, $resultData);
-        $pruned[] = $resultData[0];
-        $pruned[] = $resultData[1];
-        $pruned[] = $resultData[2];
-        $pruned[] = $resultData[3];
-        $pruned[] = $resultData[4];
-        $pruned[] = $resultData[5];
-        $pruned[] = $resultData[6];
-        $pruned[] = $resultData[7];
-        $pruned[] = $resultData[8];
-        $pruned[] = $resultData[9];
+        for ($x = 0; $x < 10; $x++)
+            $pruned[] = $resultData[$x];
+        //Replace the data with the pruned data
         $resultData = $pruned;
     }
     if ($uploadedWithinThirty > 30)  $recentUpload = 'most are within last 30 minutes.';
@@ -201,8 +214,17 @@ if (!empty($desiredWorld)) {
     $resultSelection[] = $resultData[0];
     $resultSelection[] = $resultData[1];
 
+    //Prune variables
+    unset($resultData);
+
     //Format top items for display
-    foreach ($resultSelection as $result)
+    foreach ($resultSelection as $key => $result) {
+        //Header for sections of two items
+        if ($key == 0) $results .= '<b>Highest selling items</b><br>';
+        if ($key == 2) $results .= '<br><br><b>Best-bet items</b><br>';
+        if ($key == 4) $results .= '<br><br><b>Highest efficiency items</b><br>';
+
+        //Format item
         $results .= str_replace(
             [
                 '#ITEM_NAME',
@@ -224,6 +246,7 @@ if (!empty($desiredWorld)) {
             ],
             $itemFormat
         );
+    }
 }
 
 //Error out on nonexistant world
@@ -240,8 +263,11 @@ if (empty($desiredWorld) || !$worldExists) {
     <br>
     The top result is the most efficient item that is selling the quickest you can just nab and start selling now.
     <br>
-    Data age available now: <?php echo $recentUpload; ?> Hover over any field for more information.
+    Data age available now: <u><?php echo $recentUpload; ?></u>
+    <br>Hover over any field for more information.
 </p>
+
+<br><hr class="border-gray-600"><br>
 
 <div class="mx-auto place-items-center justify-center">
     <?php echo $results; ?>
