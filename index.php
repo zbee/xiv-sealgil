@@ -40,14 +40,11 @@
 </ul>
 <p>
   Perfect for making some spare gil when you have extra company seals.
-  <br>
-  <i>This works better if you contribute to universalis</i>. If you use ACT or otherwise load addons for FFXIV, 
-  <a href="https://universalis.app/contribute" class="underline">click here to start contributing</a>. (ACT plugin is the simplest)
 </p>
 
 <div class="pt-6 text-base leading-6 font-bold sm:text-lg sm:leading-7">
 
-  <br><hr class="border-gray-600"><br>
+  <hr class="border-gray-600"><br>
 
   <div class="flex mx-auto items-center justify-center">
       <input type="text" id="worldSearch"
@@ -55,6 +52,11 @@
   </div>
 
   <div class="mx-auto place-items-center justify-center bg-gray-800 rounded-lg mt-5 border-4 border-gray-600 box-border hidden" id="searchResults"></div>
+
+  <p>
+    <i>This works better if you contribute to universalis</i>. If you use ACT or otherwise load addons for FFXIV, 
+    <a href="https://universalis.app/contribute" class="underline">click here to start contributing</a>. (ACT plugin is the simplest)
+  </p>
 </div>
 
 
