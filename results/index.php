@@ -221,8 +221,8 @@ if (!empty($desiredWorld)) {
     foreach ($resultSelection as $key => $result) {
         //Header for sections of two items
         if ($key == 0) $results .= '<b>Highest selling items</b><br>';
-        if ($key == 2) $results .= '<br><br><b>Best-bet items</b><br>';
-        if ($key == 4) $results .= '<br><br><b>Highest efficiency items</b><br>';
+        if ($key == 2) $results .= '<br><b>Best-bet items</b><br>';
+        if ($key == 4) $results .= '<br><b>Highest efficiency items</b><br>';
 
         //Format item
         $results .= str_replace(
