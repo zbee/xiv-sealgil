@@ -8,7 +8,7 @@ date_default_timezone_set('Europe/London');
 $itemFormat = <<<FRM
 <div class="mx-auto place-items-center justify-center bg-gray-800 rounded-lg mt-5 py-2 px-5 box-border flex flex-wrap text-gray-300">
 
-    <div class="w-3/6 text-left">
+    <div class="w-3/6 text-left" title="The name of the item you might want to buy for seals and sell on the market. Last uploaded: #LAST_UPLOAD (server time)">
         #ITEM_NAME
     </div>
 
@@ -29,7 +29,6 @@ $itemFormat = <<<FRM
     </div>
 
 </div>
-#EXTRA
 FRM;
 
 //Set up variables
@@ -207,6 +206,7 @@ if (!empty($desiredWorld)) {
         $results .= str_replace(
             [
                 '#ITEM_NAME',
+                '#LAST_UPLOAD',
                 '#PRICE',
                 '#EFFICIENCY',
                 '#ITEM_INFO',
@@ -215,6 +215,7 @@ if (!empty($desiredWorld)) {
             ],
             [
                 $result['itemName'],
+                date("Y-m-d H:i:s", $result['lastUpload']),
                 $result['price'],
                 $result['efficiency'],
                 $result['itemRankTab'] . ', ' . $result['itemTab'],
@@ -228,7 +229,7 @@ if (!empty($desiredWorld)) {
 //Error out on nonexistant world
 if (empty($desiredWorld) || !$worldExists) {
     $results = 'Sorry, an error has occurred (world not found or empty).';
-    $recentUpload = 'None';
+    $recentUpload = '<b>None.</b>';
 }
 ?>
 
@@ -239,7 +240,7 @@ if (empty($desiredWorld) || !$worldExists) {
     <br>
     The top result is the most efficient item that is selling the quickest you can just nab and start selling now.
     <br>
-    Data age available now: <?php echo $recentUpload; ?>.
+    Data age available now: <?php echo $recentUpload; ?> Hover over any field for more information.
 </p>
 
 <div class="mx-auto place-items-center justify-center">
