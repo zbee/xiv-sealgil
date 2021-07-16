@@ -165,8 +165,8 @@ if (!empty($desiredWorld)) {
     //Item Loop Over
 
     //Prune non-selling items
-    //If it's mostly high velocity, prune all the lowest velocity
-    if ($highVelocityItems > 30) {
+    //If there are a reasonable amount of good velocity items, prune the lowest
+    if ($goodVelocityItems > 20) {
         foreach ($resultData as $key => $item)
             if ($item['speed'] < 1)
                 unset($resultData[$key]);
@@ -175,6 +175,12 @@ if (!empty($desiredWorld)) {
     if ($goodVelocityItems > 50) {
         foreach ($resultData as $key => $item)
             if ($item['speed'] < 2)
+                unset($resultData[$key]);
+    }
+    //If it's mostly high velocity, prune the three lowest velocities
+    if ($highVelocityItems > 30) {
+        foreach ($resultData as $key => $item)
+            if ($item['speed'] < 3)
                 unset($resultData[$key]);
     }
 
