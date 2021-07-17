@@ -168,7 +168,7 @@ if (!empty($desiredWorld)) {
                 'oneDay' => $salesLastDay,
                 'twoDays' => $salesLastTwoDay
             ],
-            'lastUpload' => $update,
+            'lastUpload' => $upload,
             'withinFive' => $withinFive,
             'withinThirty' =>$withinThirty,
             'coloring' => $coloring
