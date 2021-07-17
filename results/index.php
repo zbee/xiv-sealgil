@@ -151,6 +151,9 @@ if (!empty($desiredWorld)) {
         //Calculate the sort value
         $sort = $efficiency * $salesVelocity;
 
+        var_dump(time());
+        var_dump($output->lastUploadTime);
+
         //Append raw data
         $resultData[] = [
             'itemID' => $itemID,
@@ -268,7 +271,7 @@ if (!empty($desiredWorld)) {
             [
                 $result['coloring'],
                 $result['itemName'],
-                $result['lastUpload'],
+                date("M j H:i", $result['lastUpload']),
                 $result['price'],
                 $result['efficiency'],
                 $result['itemRankTab'] . ', ' . $result['itemTab'],
