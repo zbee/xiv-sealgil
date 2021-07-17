@@ -132,18 +132,19 @@ if (!empty($desiredWorld)) {
         if ($salesVelocity > 2) $goodVelocityItems++;
 
         //Check upload date
-        if ($output->lastUploadTime > $fiveMinutesAgo) {
+        $upload = substr($output->lastUploadTime, 0, 10);
+        if ($upload > $fiveMinutesAgo) {
             $uploadedWithinFive++;
             $withinFive = true;
         }
-        if ($output->lastUploadTime > $thirtyMinutesAgo) {
+        if ($upload > $thirtyMinutesAgo) {
             $uploadedWithinThirty++;
             $withinThirty = true;
         }
 
         //Determine age coloring
-        if ($output->lastUploadTime > $twoDaysAgo) $coloring = $dateColoring[1];
-        if ($output->lastUploadTime > $threeHoursAgo) $coloring = $dateColoring[0];
+        if ($upload > $twoDaysAgo) $coloring = $dateColoring[1];
+        if ($upload > $threeHoursAgo) $coloring = $dateColoring[0];
 
         //Make sure to close out the API request
         curl_close($curl);
@@ -152,7 +153,7 @@ if (!empty($desiredWorld)) {
         $sort = $efficiency * $salesVelocity;
 
         var_dump(time());
-        var_dump($output->lastUploadTime);
+        var_dump($upload);
 
         //Append raw data
         $resultData[] = [
