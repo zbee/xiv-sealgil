@@ -11,6 +11,15 @@
         <meta name="author" content="Ethan Henderson (zbee)" />
 
         <title>XIV SealGil</title>
+
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-TB8G528SVG"></script>
+        <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'G-TB8G528SVG');
+        </script>
     </head>
     <body>
 
