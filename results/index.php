@@ -152,9 +152,6 @@ if (!empty($desiredWorld)) {
         //Calculate the sort value
         $sort = $efficiency * $salesVelocity;
 
-        var_dump(time());
-        var_dump($upload);
-
         //Append raw data
         $resultData[] = [
             'itemID' => $itemID,
@@ -171,7 +168,7 @@ if (!empty($desiredWorld)) {
                 'oneDay' => $salesLastDay,
                 'twoDays' => $salesLastTwoDay
             ],
-            'lastUpload' => $output->lastUploadTime,
+            'lastUpload' => $update,
             'withinFive' => $withinFive,
             'withinThirty' =>$withinThirty,
             'coloring' => $coloring
