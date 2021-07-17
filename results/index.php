@@ -197,7 +197,7 @@ if (!empty($desiredWorld)) {
     }
 
     //Determining the age of the data set
-    $recentUpload = 'older than 30 minutes.';
+    $recentUpload = 'older than 30 minutes (please refresh).';
     //Prune if the data set has recent information, but only if it's not mostly recent
     if ($uploadedWithinThirty > 10 && $uploadedWithinThirty < 50 && $uploadedWithinFive < 30) {
         $recentUpload = 'displayed are within last 30 minutes.';
@@ -295,7 +295,7 @@ if (empty($desiredWorld) || !$worldExists) {
 <p>
     These are the most efficient items to convert from seals to gil on <u><?php echo $worldName; ?></u> - excluding furniture.
     <br>
-    Data age available now: <u><?php echo $recentUpload; ?></u>
+    Data age available now: <u><?php echo $recentUpload; ?></u> (darker items are older, please refresh that data)
     <br>
     <span class="text-xs">Hover over any field for more information; the title also has the data upload date, and the colored sales text includes recent sales.</span>
 </p>
