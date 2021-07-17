@@ -197,10 +197,10 @@ if (!empty($desiredWorld)) {
     }
 
     //Determining the age of the data set
-    $recentUpload = 'older than 30 minutes.';
+    $recentUpload = 'older than 30 minutes';
     //Prune if the data set has recent information, but only if it's not mostly recent
     if ($uploadedWithinThirty > 10 && $uploadedWithinThirty < 50 && $uploadedWithinFive < 30) {
-        $recentUpload = 'displayed are within last 30 minutes.';
+        $recentUpload = 'displayed are within last 30 minutes';
         //As done below, sort by the upload date and choose only the top 10 items
         $pruned = [];
         $prune_keys = array_column($resultData, 'lastUpload');
@@ -222,11 +222,11 @@ if (!empty($desiredWorld)) {
             if ($item['lastUpload'] < $fiveMinutesAgo)
                 unset($resultData[$key]);
     }
-    if ($uploadedWithinThirty > 30)  $recentUpload = 'most are within last 30 minutes.';
-    if ($uploadedWithinThirty > 50)  $recentUpload = 'all are within last 30 minutes.';
-    if ($uploadedWithinFive > 10)  $recentUpload = 'displayed are within last 5 minutes.';
-    if ($uploadedWithinFive > 30)  $recentUpload = 'most are within last 5 minutes.';
-    if ($uploadedWithinFive > 50)  $recentUpload = 'all are within last 5 minutes.';
+    if ($uploadedWithinThirty > 30)  $recentUpload = 'most are within last 30 minutes';
+    if ($uploadedWithinThirty > 50)  $recentUpload = 'all are within last 30 minutes';
+    if ($uploadedWithinFive > 10)  $recentUpload = 'displayed are within last 5 minutes';
+    if ($uploadedWithinFive > 30)  $recentUpload = 'most are within last 5 minutes';
+    if ($uploadedWithinFive > 50)  $recentUpload = 'all are within last 5 minutes';
 
     //Choose top items to display, sorting by a key and then choosing the top two items three times
     $speed_keys = array_column($resultData, 'speed');
@@ -295,7 +295,7 @@ if (empty($desiredWorld) || !$worldExists) {
 <p>
     These are the most efficient items to convert from seals to gil on <u><?php echo $worldName; ?></u> - excluding furniture.
     <br>
-    Data age available now: <u><?php echo $recentUpload; ?></u>
+    Data age available now: <u><?php echo $recentUpload; ?></u>.
     <br>
     (darker items are older, please refresh that data)
     <br>
