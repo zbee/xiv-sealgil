@@ -197,7 +197,7 @@ if (!empty($desiredWorld)) {
     }
 
     //Determining the age of the data set
-    $recentUpload = 'older than 30 minutes (please refresh).';
+    $recentUpload = 'older than 30 minutes.';
     //Prune if the data set has recent information, but only if it's not mostly recent
     if ($uploadedWithinThirty > 10 && $uploadedWithinThirty < 50 && $uploadedWithinFive < 30) {
         $recentUpload = 'displayed are within last 30 minutes.';
