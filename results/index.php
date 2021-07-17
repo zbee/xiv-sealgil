@@ -292,7 +292,7 @@ if (empty($desiredWorld) || !$worldExists) {
 <br><br>
 
 <p>
-    These are the most efficient items to buy convern from seals to gil on <u><?php echo $worldName; ?></u> - excluding furniture.
+    These are the most efficient items to convert from seals to gil on <u><?php echo $worldName; ?></u> - excluding furniture.
     <br>
     Data age available now: <u><?php echo $recentUpload; ?></u>
     <br>
