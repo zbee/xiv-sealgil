@@ -268,7 +268,7 @@ if (!empty($desiredWorld)) {
             [
                 $result['coloring'],
                 $result['itemName'],
-                date("M j H:i", $result['lastUpload']),
+                $result['lastUpload'],
                 $result['price'],
                 $result['efficiency'],
                 $result['itemRankTab'] . ', ' . $result['itemTab'],
