@@ -295,7 +295,9 @@ if (empty($desiredWorld) || !$worldExists) {
 <p>
     These are the most efficient items to convert from seals to gil on <u><?php echo $worldName; ?></u> - excluding furniture.
     <br>
-    Data age available now: <u><?php echo $recentUpload; ?></u> (darker items are older, please refresh that data)
+    Data age available now: <u><?php echo $recentUpload; ?></u>
+    <br>
+    (darker items are older, please refresh that data)
     <br>
     <span class="text-xs">Hover over any field for more information; the title also has the data upload date, and the colored sales text includes recent sales.</span>
 </p>
