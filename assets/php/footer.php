@@ -2,7 +2,7 @@
                 </div>
                 
                 <div class="pt-6 text-xs text-gray-500">
-                    Built by <a href="https://keybase.io/zbee" class="underline">Ethan</a> (during patch <b>5.57</b>),
+                    Built by <a href="https://keybase.io/zbee" class="underline">Ethan</a> in 2021 (updated to patch <b>5.57</b>),
                     Utilizing data from <a href="https://universalis.app" class="underline">Universalis</a>,
                     Using resources from <a href="https://www.finalfantasyxiv.com" class="underline">FFXIV</a>.
                     Running on <a href="https://heroku.com" class="underline">Heroku</a> with
