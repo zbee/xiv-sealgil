@@ -1,35 +1,5 @@
 <?php
 require('../assets/php/header.php');
-require('../assets/php/exchangeItems.php');
-
-date_default_timezone_set('Europe/London');
-
-//The styling for each item
-$itemFormat = <<<FRM
-<div class="mx-auto place-items-center justify-center bg-#COLOR rounded-lg mt-5 py-2 px-5 box-border flex flex-wrap text-gray-300">
-
-    <div class="w-3/6 text-left" title="The name of the item you might want to buy for seals and sell on the market. Last uploaded: #LAST_UPLOAD (server time)">
-        #ITEM_NAME
-    </div>
-
-    <div class="w-2/6 text-justify font-bold" title="The price you should list this on the market for.">
-        #PRICEgil
-    </div>
-
-    <div class="w-1/6 text-right text-xs" title="The efficiency of the Seals to Gil conversion.">
-        #EFFICIENCY&eta;
-    </div>
-
-    <div class="w-3/6 text-left text-gray-400 text-sm" title="Where you can find the item for purchase in the GC Seal exchange window.">
-        #ITEM_INFO
-    </div>
-
-    <div class="w-3/6 text-right text-sm" title="An arbitrary scale for how often this item is selling. Specifically: #SOLD sold in the last 2 days">
-        #SPEED
-    </div>
-
-</div>
-FRM;
 
 //Set up variables
 $desiredWorld = $_GET['world'];
@@ -48,29 +18,100 @@ $salesVelocityRanking = [
     '<p class="text-purple-400">flowing!</p>',
 ];
 $dateColoring = [
-    'gray-800',
     'gray-900',
+    'gray-800',
     'yellow-900'
 ];
 $time = time();
-$fiveMinutesAgo = $time - (60*5);
-$thirtyMinutesAgo = $time - (60*5);
-$threeHoursAgo = $time - (60*60*3);
-$twoDaysAgo = $time - (60*60*24*2);
-$oneDayAgo = $time - (60*60*24);
-$uploadedWithinFive = 0;
-$uploadedWithinThirty = 0;
-$highVelocityItems = 0;
-$goodVelocityItems = 0;
+$minutes = 60;
+$hours = 60*60;
+$days = 60*60*24;
+$countVelocityWithinHighThreshold = 0;
+$countVelocityWithinGoodThreshold = 0;
+$countUploadedWithinNowThreshold = 0;
+$countUploadedWithinRecentThreshold = 0;
+$countEfficiencyWithinGoodThreshold = 0;
+$countEfficiencyWithinHighThreshold = 0;
 
-//Load data
+
+///////////////////////////////////////////////////////////////////////////
+//Config
+///////////////////////////////////////////////////////////////////////////
+
+//Pruning/Rating thresholds
+$thresholdEfficiencyGood = 0.5;
+$thresholdEfficiencyHigh = 1.0;
+
+$thresholdSaleVelocityOne = 5;
+$thresholdSaleVelocityTwo = 10;
+$thresholdSaleVelocityThree = 5;
+$thresholdSaleVelocityFour = 10;
+$thresholdSaleVelocityFive = 10;
+$thresholdSaleVelocitySix = 20;
+
+$thresholdSaleVelocityGood = 2;
+$thresholdSaleVelocityHigh = 3;
+
+//Time-ago thresholds
+$thresholdUploadNow = $time - 5*$minutes;
+$thresholdUploadRecent = $time - 30*$minutes;
+$thresholdsalesWithinNowThreshold = $time - 3*$hours;
+$thresholdSalesRecent = $time - 1*$days;
+$thresholdsalesWithinNearThreshold = $time - 2*$days;
+
+///////////////////////////////////////////////////////////////////////////
+//Setup
+///////////////////////////////////////////////////////////////////////////
+
+//Include list of items you can buy for seals
+require('../assets/php/exchangeItems.php');
+
+//Use ffxiv server time
+date_default_timezone_set('Europe/London');
+
+//The styling for each item
+$itemFormat = <<<FRM
+<div class="mx-auto place-items-center justify-center bg-#COLOR rounded-lg mt-5
+    py-2 px-5 box-border flex flex-wrap text-gray-300">
+
+    <div class="w-3/6 text-left"
+        title="The name of the item you might want to buy for seals and sell on
+            the market. Last uploaded: #LAST_UPLOAD (server time)">
+        #ITEM_NAME
+    </div>
+
+    <div class="w-2/6 text-justify font-bold"
+        title="The price you should list this on the market for.">
+        #PRICEgil
+    </div>
+
+    <div class="w-1/6 text-right text-xs"
+        title="The efficiency of the Seals to Gil conversion.">
+        #EFFICIENCY&eta;
+    </div>
+
+    <div class="w-3/6 text-left text-gray-400 text-sm"
+        title="Where you can find the item for purchase in the GC Seal
+            exchange window.">
+        #ITEM_INFO
+    </div>
+
+    <div class="w-3/6 text-right text-sm"
+        title="An arbitrary scale for how often this item is selling.
+        Specifically: #SOLD sold in the last 2 days">
+        #SPEED
+    </div>
+
+</div>
+FRM;
+
+//Load world list
 $worldList = file_get_contents('../assets/js/worldList.js');
 $worldList = str_replace('let serverList = ', '', $worldList);
 $worldList = str_replace(';', '', $worldList);
 $worldList = json_decode($worldList);
 
-
-//Check world exists
+//Check selected world exists
 if (!empty($desiredWorld)) {
     foreach ($worldList as $world) {
         if ($worldExists) continue;
@@ -79,80 +120,109 @@ if (!empty($desiredWorld)) {
             $worldName = $world->world;
         }
     }
+}
 
+
+///////////////////////////////////////////////////////////////////////////
+//Loading data set
+///////////////////////////////////////////////////////////////////////////
+
+if ($worldExists) {
     //Loop through all items you can get from exchanging seals
     foreach ($exchangeItems as $itemID => $item) {
 
         //Request the item market information from Universalis
         $curl = curl_init();
-        curl_setopt($curl, CURLOPT_URL, 'https://universalis.app/api/' . $worldName . '/' . $itemID);
+        curl_setopt($curl, CURLOPT_URL,
+            'https://universalis.app/api/' . $worldName . '/' . $itemID
+        );
         curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
         $output = json_decode(curl_exec($curl));
 
-        //Set up variables
-        $salesLastThreeHour = 0;
-        $salesLastDay = 0;
-        $salesLastTwoDay = 0;
+        //Set up individual variables
+        $salesWithinNowThreshold = 0;
+        $salesWithinRecentThreshold = 0;
+        $salesWithinNearThreshold = 0;
         $price = 0;
         $lastSoldPrice = 0;
         $efficiency = 0;
-        $withinFive = false;
-        $withinThirty = false;
+        $uploadedWithinNowThreshold = false;
+        $uploadedWithinRecentThreshold = false;
         $coloring = $dateColoring[2];
 
-        //Determine the price to use
+        //Determine the price to use, 1 gil under the lowest listed
         if ($output->listings != null) {
             $price = (int)$output->listings[0]->pricePerUnit;
             $price--;
         }
         $lastSoldPrice = (int)$output->recentHistory[0]->pricePerUnit;
 
-        //Determine the efficiency
+        //Determine the seal->gil efficiency
         $efficiency = $price / (int)$item[0];
         $efficiency = round($efficiency, 2);
+
+        //Running number of good efficiency items
+        if ($efficiency > $thresholdEfficiencyGood)
+            $countEfficiencyWithinGoodThreshold++;
+        if ($efficiency > $thresholdEfficiencyHigh)
+            $countEfficiencyWithinHighThreshold++;
 
         //Determine the recent sales
         foreach ($output->recentHistory as $sale) {
             $timestamp = $sale->timestamp;
-            if ($timestamp > $twoDaysAgo) $salesLastTwoDay++;
-            if ($timestamp > $oneDayAgo) $salesLastDay++;
-            if ($timestamp > $threeHoursAgo) $salesLastThreeHour++;
+            if ($timestamp > $thresholdsalesWithinNearThreshold)
+                $salesWithinNearThreshold++;
+            if ($timestamp > $thresholdSalesRecent)
+                $salesWithinRecentThreshold++;
+            if ($timestamp > $thresholdsalesWithinNowThreshold)
+                $salesWithinNowThreshold++;
         }
 
         //Rate the sale speed
         $salesVelocity = 0;
-        if ($salesLastTwoDay > 5) $salesVelocity = 1;
-        if ($salesLastTwoDay > 10) $salesVelocity = 2;
-        if ($salesLastDay > 5) $salesVelocity = 3;
-        if ($salesLastDay > 10) $salesVelocity = 4;
-        if ($salesLastThreeHour > 10) $salesVelocity = 5;
-        if ($salesLastThreeHour > 20) $salesVelocity = 6;
+        if ($salesWithinNearThreshold > $thresholdSaleVelocityOne)
+            $salesVelocity = 1;
+        if ($salesWithinNearThreshold > $thresholdSaleVelocityTwo)
+            $salesVelocity = 2;
+        if ($salesWithinRecentThreshold > $thresholdSaleVelocityThree)
+            $salesVelocity = 3;
+        if ($salesWithinRecentThreshold > $thresholdSaleVelocityFour)
+            $salesVelocity = 4;
+        if ($salesWithinNowThreshold > $thresholdSaleVelocityFive)
+            $salesVelocity = 5;
+        if ($salesWithinNowThreshold > $thresholdSaleVelocitySix)
+            $salesVelocity = 6;
 
-        if ($salesVelocity > 3) $highVelocityItems++;
-        if ($salesVelocity > 2) $goodVelocityItems++;
+        //Running number of good velocity items
+        if ($salesVelocity > $thresholdSaleVelocityGood)
+            $countVelocityWithinGoodThreshold++;
+        if ($salesVelocity > $thresholdSaleVelocityHigh)
+            $countVelocityWithinHighThreshold++;
 
         //Check upload date
-        $upload = substr($output->lastUploadTime, 0, 10);
-        if ($upload > $fiveMinutesAgo) {
-            $uploadedWithinFive++;
-            $withinFive = true;
+        $uploadTime = substr($output->lastUploadTime, 0, 10); //fix timestamp
+        if ($uploadTime > $fiveMinutesAgo) {
+            $countUploadedWithinNowThreshold++;
+            $uploadedWithinNowThreshold = true;
         }
-        if ($upload > $thirtyMinutesAgo) {
-            $uploadedWithinThirty++;
-            $withinThirty = true;
+        if ($uploadTime > $thirtyMinutesAgo) {
+            $countUploadedWithinRecentThreshold++;
+            $uploadedWithinRecentThreshold = true;
         }
 
         //Determine age coloring
-        if ($upload > $twoDaysAgo) $coloring = $dateColoring[1];
-        if ($upload > $threeHoursAgo) $coloring = $dateColoring[0];
-
-        //Make sure to close out the API request
-        curl_close($curl);
+        if ($uploadTime > $thresholdSalesRecent)
+            $coloring = $dateColoring[1];
+        if ($uploadTime > $thresholdsalesWithinNowThreshold)
+            $coloring = $dateColoring[0];
 
         //Calculate the sort value
         $sort = $efficiency * $salesVelocity;
 
-        //Append raw data
+        //Make sure to close out the API request
+        curl_close($curl);
+
+        //Store processed data
         $resultData[] = [
             'itemID' => $itemID,
             'itemName' => $item[1],
@@ -164,33 +234,51 @@ if (!empty($desiredWorld)) {
             'efficiency' => $efficiency,
             'speed' => $salesVelocity,
             'sales' => [
-                'threeHours' => $salesLastThreeHour,
-                'oneDay' => $salesLastDay,
-                'twoDays' => $salesLastTwoDay
+                'threeHours' => $salesWithinNowThreshold,
+                'oneDay' => $salesWithinRecentThreshold,
+                'twoDays' => $salesWithinNearThreshold
             ],
-            'lastUpload' => $upload,
-            'withinFive' => $withinFive,
-            'withinThirty' =>$withinThirty,
+            'lastUpload' => $uploadTime,
+            'uploadedWithinNowThreshold' => $uploadedWithinNowThreshold,
+            'uploadedWithinRecentThreshold' =>$uploadedWithinRecentThreshold,
             'coloring' => $coloring
         ];
     }
-    //Item Loop Over
+
+
+    ///////////////////////////////////////////////////////////////////////////
+    //Pruning, determining dataset averages
+    ///////////////////////////////////////////////////////////////////////////
+
+    //Prune low-efficiency items
+    //If it's all good efficiency, prune all below the good efficiency threshold
+    if ($countEfficiencyWithinGoodThreshold > 50) {
+        foreach ($resultData as $key => $item)
+            if ($item['efficiency'] < $thresholdEfficiencyGood)
+                unset($resultData[$key]);
+    }
+    //If it's mostly high efficiency, prune all below
+    if ($countEfficiencyWithinHighThreshold > 30) {
+        foreach ($resultData as $key => $item)
+            if ($item['efficiency'] < $thresholdEfficiencyHigh)
+                unset($resultData[$key]);
+    }
 
     //Prune non-selling items
     //If there are a reasonable amount of good velocity items, prune the lowest
-    if ($goodVelocityItems > 20) {
+    if ($countVelocityWithinGoodThreshold > 20) {
         foreach ($resultData as $key => $item)
             if ($item['speed'] < 1)
                 unset($resultData[$key]);
     }
     //If it's all good velocity, prune the two lowest velocities
-    if ($goodVelocityItems > 50) {
+    if ($countVelocityWithinGoodThreshold > 50) {
         foreach ($resultData as $key => $item)
             if ($item['speed'] < 2)
                 unset($resultData[$key]);
     }
     //If it's mostly high velocity, prune the three lowest velocities
-    if ($highVelocityItems > 30) {
+    if ($countVelocityWithinHighThreshold > 30) {
         foreach ($resultData as $key => $item)
             if ($item['speed'] < 3)
                 unset($resultData[$key]);
@@ -198,10 +286,22 @@ if (!empty($desiredWorld)) {
 
     //Determining the age of the data set
     $recentUpload = 'older than 30 minutes';
-    //Prune if the data set has recent information, but only if it's not mostly recent
-    if ($uploadedWithinThirty > 10 && $uploadedWithinThirty < 50 && $uploadedWithinFive < 30) {
-        $recentUpload = 'displayed are within last 30 minutes';
-        //As done below, sort by the upload date and choose only the top 10 items
+    $uploadedFormat = '#w are within last #t minutes';
+
+    //Prune if the data set has recent information,
+    // but only if it's not mostly recent
+    // (these numbers are static due to being a percentage of the dataset size)
+    if (
+        $countUploadedWithinRecentThreshold > 10
+        && $countUploadedWithinRecentThreshold < 50
+        && $countUploadedWithinNowThreshold < 30
+    ) {
+        $recentUpload = str_replace(
+            ['#w','#t'],
+            ['displayed', $thresholdUploadRecent],
+            $uploadedFormat
+        );
+        //As below, sort by the upload date and choose only the top 10 items
         $pruned = [];
         $prune_keys = array_column($resultData, 'lastUpload');
         array_multisort($prune_keys, SORT_DESC, $resultData);
@@ -211,24 +311,55 @@ if (!empty($desiredWorld)) {
         $resultData = $pruned;
     }
     //If it's mostly pretty recent, prune the oldest
-    if ($uploadedWithinThirty > 50) {
+    if ($countUploadedWithinRecentThreshold > 50) {
         foreach ($resultData as $key => $item)
-            if ($item['lastUpload'] < $thirtyMinutesAgo)
+            if ($item['lastUpload'] < $thresholdUploadRecent)
                 unset($resultData[$key]);
     }
     //If it's mostly very recent, prune the oldest
-    if ($uploadedWithinFive > 50) {
+    if ($countUploadedWithinNowThreshold > 50) {
         foreach ($resultData as $key => $item)
-            if ($item['lastUpload'] < $fiveMinutesAgo)
+            if ($item['lastUpload'] < $thresholdUploadNow)
                 unset($resultData[$key]);
     }
-    if ($uploadedWithinThirty > 30)  $recentUpload = 'most are within last 30 minutes';
-    if ($uploadedWithinThirty > 50)  $recentUpload = 'all are within last 30 minutes';
-    if ($uploadedWithinFive > 10)  $recentUpload = 'displayed are within last 5 minutes';
-    if ($uploadedWithinFive > 30)  $recentUpload = 'most are within last 5 minutes';
-    if ($uploadedWithinFive > 50)  $recentUpload = 'all are within last 5 minutes';
+    if ($countUploadedWithinRecentThreshold > 30)
+        $recentUpload = str_replace(
+            ['#w','#t'],
+            ['most', $thresholdUploadRecent],
+            $uploadedFormat
+        );
+    if ($countUploadedWithinRecentThreshold > 55)
+        $recentUpload = str_replace(
+            ['#w','#t'],
+            ['all', $thresholdUploadRecent],
+            $uploadedFormat
+        );
+    if ($countUploadedWithinNowThreshold > 10)
+        $recentUpload = str_replace(
+            ['#w','#t'],
+            ['displayed', $thresholdUploadNow],
+            $uploadedFormat
+        );
+    if ($countUploadedWithinNowThreshold > 30)
+    $recentUpload = str_replace(
+        ['#w','#t'],
+        ['most', $thresholdUploadNow],
+        $uploadedFormat
+    );
+    if ($countUploadedWithinNowThreshold > 55)
+    $recentUpload = str_replace(
+        ['#w','#t'],
+        ['all', $thresholdUploadNow],
+        $uploadedFormat
+    );
 
-    //Choose top items to display, sorting by a key and then choosing the top two items three times
+
+    ///////////////////////////////////////////////////////////////////////////
+    //Displaying
+    ///////////////////////////////////////////////////////////////////////////
+
+    //Choose top items to display
+    // sorting by a key and then choosing the top two items three times
     $speed_keys = array_column($resultData, 'speed');
     array_multisort($speed_keys, SORT_DESC, $resultData);
     $resultSelection[] = $resultData[0];
@@ -286,6 +417,10 @@ if (empty($desiredWorld) || !$worldExists) {
     $results = 'Sorry, an error has occurred (world not found or empty).';
     $recentUpload = '<b>None.</b>';
 }
+
+///////////////////////////////////////////////////////////////////////////
+//Base page
+///////////////////////////////////////////////////////////////////////////
 ?>
 
 <div class="pt-4 text-md text-gray-300">
@@ -297,7 +432,7 @@ if (empty($desiredWorld) || !$worldExists) {
     <br>
     Data age available now: <u><?php echo $recentUpload; ?></u>.
     <br>
-    (darker items are older, please refresh that data)
+    (lighter items are older, yellow is quite old, please refresh that data)
     <br>
     <span class="text-xs">Hover over any field for more information; the title also has the data upload date, and the colored sales text includes recent sales.</span>
 </p>
