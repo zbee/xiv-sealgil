@@ -1,10 +1,6 @@
 <?php
 require('../assets/php/header.php');
 
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
-
 //Set up variables
 $desiredWorld = $_GET['world'];
 $worldExists = false;
@@ -60,7 +56,7 @@ $thresholdSaleVelocityHigh = 3;
 $thresholdUploadNowNumber = 5;
 $thresholdUploadRecentNumber = 30;
 $thresholdUploadNow = $time - $thresholdUploadNowNumber*$minutes;
-$thresholdUploadRecent = $time - $thresholdUploadRecent*$minutes;
+$thresholdUploadRecent = $time - $thresholdUploadRecentNumber*$minutes;
 
 $thresholdsalesWithinNowThreshold = $time - 3*$hours;
 $thresholdSalesRecent = $time - 1*$days;
