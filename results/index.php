@@ -75,7 +75,7 @@ date_default_timezone_set('Europe/London');
 //The styling for each item
 $itemFormat = <<<FRM
 <div class="mx-auto place-items-center justify-center bg-#COLOR rounded-lg mt-5
-    py-2 px-5 box-border flex flex-wrap text-gray-300">
+    py-2 px-5 box-border flex flex-wrap text-gray-300 #SPECIAL">
 
     <div class="w-3/6 text-left"
         title="The name of the item you might want to buy for seals and sell on
@@ -381,11 +381,60 @@ if ($worldExists) {
     //Prune variables
     unset($resultData);
 
+    //Check if there's a stand-out item
+    $standoutItemCounts = [];
+    //Loop through and count occurrences of items
+    foreach ($resultSelection as $result) {
+        if (array_key_exists($result['itemName'], $standoutItemCounts))
+            $standoutItemCounts[$result['itemName']]++;
+        else
+            $standoutItemCounts[$result['itemName']] = 1;
+    }
+    $standoutItem = false;
+    //Check if there's a standout
+    foreach ($standoutItemCounts as $item => $count)
+        if ($count > 1)
+            $standoutItem = $item;
+    //If there's a standout then save it's key for usage
+    if (is_string($standoutItem))
+        foreach ($resultSelection as $key => $item)
+            if ($item['itemName'] == $standoutItem && is_string($standoutItem))
+                $standoutItem = $key;
+    //Format standout item
+    if (is_int($standoutItem)) {
+        $result = $resultSelection[$standoutItem];
+        $results .= '<b>Pickup this stand-out item!</b><br>' . str_replace(
+            [
+                '#COLOR',
+                '#ITEM_NAME',
+                '#LAST_UPLOAD',
+                '#PRICE',
+                '#EFFICIENCY',
+                '#ITEM_INFO',
+                '#SOLD',
+                '#SPEED',
+                '#SPECIAL',
+            ],
+            [
+                $result['coloring'],
+                $result['itemName'],
+                date("M j H:i", $result['lastUpload']),
+                $result['price'],
+                $result['efficiency'],
+                $result['itemRankTab'] . ', ' . $result['itemTab'],
+                $result['sales']['twoDays'],
+                $salesVelocityRanking[$result['speed']],
+                'border-2 border-yellow-300'
+            ],
+            $itemFormat
+        );
+    }
+
     //Format top items for display
     foreach ($resultSelection as $key => $result) {
         //Header for sections of two items
         if ($key == 0) $results .= '<b>Highest selling items</b><br>';
-        if ($key == 2) $results .= '<br><b>Best-bet items</b><br>';
+        if ($key == 2) $results .= '<br><b>Best-balanced items</b><br>';
         if ($key == 4) $results .= '<br><b>Highest efficiency items</b><br>';
 
         //Format item
@@ -399,6 +448,7 @@ if ($worldExists) {
                 '#ITEM_INFO',
                 '#SOLD',
                 '#SPEED',
+                '#SPECIAL',
             ],
             [
                 $result['coloring'],
@@ -409,6 +459,7 @@ if ($worldExists) {
                 $result['itemRankTab'] . ', ' . $result['itemTab'],
                 $result['sales']['twoDays'],
                 $salesVelocityRanking[$result['speed']],
+                '',
             ],
             $itemFormat
         );
