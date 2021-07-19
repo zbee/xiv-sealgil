@@ -254,8 +254,8 @@ if ($worldExists) {
     ///////////////////////////////////////////////////////////////////////////
 
     //Prune low-efficiency items
-    //If it's all good efficiency, prune all below the good efficiency threshold
-    if ($countEfficiencyWithinGoodThreshold > 50) {
+    //If it's mostly good efficiency, prune all below the efficiency threshold
+    if ($countEfficiencyWithinGoodThreshold > 30) {
         foreach ($resultData as $key => $item)
             if ($item['efficiency'] < $thresholdEfficiencyGood)
                 unset($resultData[$key]);
