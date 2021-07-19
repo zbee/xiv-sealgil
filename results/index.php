@@ -57,8 +57,11 @@ $thresholdSaleVelocityGood = 2;
 $thresholdSaleVelocityHigh = 3;
 
 //Time-ago thresholds
-$thresholdUploadNow = $time - 5*$minutes;
-$thresholdUploadRecent = $time - 30*$minutes;
+$thresholdUploadNowNumber = 5;
+$thresholdUploadRecentNumber = 30;
+$thresholdUploadNow = $time - $thresholdUploadNowNumber*$minutes;
+$thresholdUploadRecent = $time - $thresholdUploadRecent*$minutes;
+
 $thresholdsalesWithinNowThreshold = $time - 3*$hours;
 $thresholdSalesRecent = $time - 1*$days;
 $thresholdsalesWithinNearThreshold = $time - 2*$days;
@@ -205,11 +208,11 @@ if ($worldExists) {
 
         //Check upload date
         $uploadTime = substr($output->lastUploadTime, 0, 10); //fix timestamp
-        if ($uploadTime > $fiveMinutesAgo) {
+        if ($uploadTime > $thresholdUploadNow) {
             $countUploadedWithinNowThreshold++;
             $uploadedWithinNowThreshold = true;
         }
-        if ($uploadTime > $thirtyMinutesAgo) {
+        if ($uploadTime > $thresholdUploadRecent) {
             $countUploadedWithinRecentThreshold++;
             $uploadedWithinRecentThreshold = true;
         }
@@ -302,7 +305,7 @@ if ($worldExists) {
     ) {
         $recentUpload = str_replace(
             ['#w','#t'],
-            ['displayed', $thresholdUploadRecent],
+            ['displayed', $thresholdUploadRecentNumber],
             $uploadedFormat
         );
         //As below, sort by the upload date and choose only the top 10 items
@@ -329,33 +332,33 @@ if ($worldExists) {
     if ($countUploadedWithinRecentThreshold > 30)
         $recentUpload = str_replace(
             ['#w','#t'],
-            ['most', $thresholdUploadRecent],
+            ['most', $thresholdUploadRecentNumber],
             $uploadedFormat
         );
     if ($countUploadedWithinRecentThreshold > 55)
         $recentUpload = str_replace(
             ['#w','#t'],
-            ['all', $thresholdUploadRecent],
+            ['all', $thresholdUploadRecentNumber],
             $uploadedFormat
         );
     if ($countUploadedWithinNowThreshold > 10)
         $recentUpload = str_replace(
             ['#w','#t'],
-            ['displayed', $thresholdUploadNow],
+            ['displayed', $thresholdUploadNowNumber],
             $uploadedFormat
         );
     if ($countUploadedWithinNowThreshold > 30)
-    $recentUpload = str_replace(
-        ['#w','#t'],
-        ['most', $thresholdUploadNow],
-        $uploadedFormat
-    );
+        $recentUpload = str_replace(
+            ['#w','#t'],
+            ['most', $thresholdUploadNowNumber],
+            $uploadedFormat
+        );
     if ($countUploadedWithinNowThreshold > 55)
-    $recentUpload = str_replace(
-        ['#w','#t'],
-        ['all', $thresholdUploadNow],
-        $uploadedFormat
-    );
+        $recentUpload = str_replace(
+            ['#w','#t'],
+            ['all', $thresholdUploadNowNumber],
+            $uploadedFormat
+        );
 
 
     ///////////////////////////////////////////////////////////////////////////
