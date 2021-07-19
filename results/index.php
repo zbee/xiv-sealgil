@@ -427,7 +427,7 @@ if ($worldExists) {
                 'border-2 border-yellow-300'
             ],
             $itemFormat
-        );
+        ) . '<br>';
     }
 
     //Format top items for display
