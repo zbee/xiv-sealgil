@@ -267,6 +267,8 @@ if ($worldExists) {
                 unset($resultData[$key]);
     }
 
+    echo "$countEfficiencyWithinGoodThreshold<br>$countEfficiencyWithinHighThreshold<br>$countVelocityWithinGoodThreshold<br>$countVelocityWithinHighThreshold<br>";
+
     //Prune non-selling items
     //If there are a reasonable amount of good velocity items, prune the lowest
     if ($countVelocityWithinGoodThreshold > 12) {
