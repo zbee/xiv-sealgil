@@ -92,7 +92,7 @@ $itemFormat = <<<FRM
 
     <div class="w-1/6 text-right text-xs"
         title="The efficiency of the Seals to Gil conversion.">
-        #EFFICIENCY&eta;
+        #EFFICIENCY&eta; (#SORT&gamma;)
     </div>
 
     <div class="w-3/6 text-left text-gray-400 text-sm"
@@ -437,6 +437,7 @@ if ($worldExists) {
                             '#LAST_UPLOAD',
                             '#PRICE',
                             '#EFFICIENCY',
+                            '#SORT',
                             '#ITEM_INFO',
                             '#SOLD',
                             '#SPEED',
@@ -448,6 +449,7 @@ if ($worldExists) {
                             date("M j H:i", $result['lastUpload']),
                             number_format($result['price'], 0),
                             number_format($result['efficiency'], 2),
+                            $result['sort'],
                             $result['itemRankTab'] . ', ' . $result['itemTab'],
                             $result['sales']['twoDays'],
                             $salesVelocityRanking[$result['speed']],
@@ -472,6 +474,7 @@ if ($worldExists) {
                 '#LAST_UPLOAD',
                 '#PRICE',
                 '#EFFICIENCY',
+                '#SORT',
                 '#ITEM_INFO',
                 '#SOLD',
                 '#SPEED',
@@ -483,6 +486,7 @@ if ($worldExists) {
                 date("M j H:i", $result['lastUpload']),
                 number_format($result['price'], 0),
                 number_format($result['efficiency'], 2),
+                $result['sort'],
                 $result['itemRankTab'] . ', ' . $result['itemTab'],
                 $result['sales']['twoDays'],
                 $salesVelocityRanking[$result['speed']],
