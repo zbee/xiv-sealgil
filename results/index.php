@@ -297,9 +297,10 @@ if ($worldExists) {
         //Normalize efficiency values
         $result['efficiency'] = ($result['efficiency'] - $efficiencyMin);
         $result['efficiency'] /= ($efficiencyMax - $efficiencyMin);
+        $resultData[$key]['efficiency'] = $result['efficiency'];
 
         //Calculate the sort value
-        $sort = $resultData[$key]['efficiency'] * $salesVelocity;
+        $sort = $result['efficiency'] * $salesVelocity;
 
         //Penalize sort if most sales are within Recent and not Far thresholds
         if ($salesWithinFarThreshold < $salesWithinRecentThreshold * 1.25)
