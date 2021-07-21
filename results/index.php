@@ -335,7 +335,8 @@ if ($worldExists) {
     var_dump(
         $countEfficiencyWithinGoodThreshold,
         $countEfficiencyWithinHighThreshold,
-        multiGetMean($resultData, 'efficiency')
+        multiGetMean($resultData, 'efficiency'),
+        multiGetMedian($resultData, 'efficiency')
     );
 
     //Prune low-efficiency items
