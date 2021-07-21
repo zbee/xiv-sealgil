@@ -91,7 +91,9 @@ $itemFormat = <<<FRM
     </div>
 
     <div class="w-1/6 text-right text-xs"
-        title="The efficiency of the Seals to Gil conversion.">
+        title="The efficiency of the Seals to Gil conversion. In parentheses:
+        An arbitrary scale of the sorted list, combining and accounting for
+        multiple displayed metrics.">
         #EFFICIENCY&eta; (#SORT&gamma;)
     </div>
 
