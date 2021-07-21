@@ -39,9 +39,9 @@ $countEfficiencyWithinHighThreshold = 0;
 //Config
 ///////////////////////////////////////////////////////////////////////////
 
-//Pruning/Rating thresholds
-$thresholdEfficiencyGood = 0.3;
-$thresholdEfficiencyHigh = 0.5;
+//Pruning/Rating thresholds (on a -2 to +2 scale)
+$thresholdEfficiencyGood = 0;
+$thresholdEfficiencyHigh = 1;
 
 $thresholdSaleVelocityOne = 5;
 $thresholdSaleVelocityTwo = 10;
@@ -284,28 +284,26 @@ if ($worldExists) {
         $averageSaleVelocity += $result['speed'];
     $averageSaleVelocity /= count($resultData);
 
-    //Determining values for min/max of efficiency values for normalization
+    //Determining values for normalization
     $normalizationMean = multiGetMean($resultData, 'efficiency');
     $normalizationSD = multiGetStandardDeviation($resultData, 'efficiency');
-    $efficiencyMin = 0;
-    $efficiencyMax = 0;
-    foreach ($resultData as $result) {
-        $e = $result['efficiency'];
-        if ($e < $efficiencyMin || $efficiencyMin == 0)
-            if ($e > $e-$normalizationSD*2)
-                $efficiencyMin = $e;
-        if ($e > $efficiencyMax)
-            if ($e < $e-$normalizationSD*2)
-                $efficiencyMax = $result['efficiency'];
-    }
     
     //Normalizing efficiency values, determining sort value
     foreach ($resultData as $key => $result) {
-        //Normalize efficiency values
-        $resultData[$key]['UnNormalizedEfficiency'] = $result['efficiency'];
-        $result['efficiency'] = ($result['efficiency'] - $efficiencyMin);
-        $result['efficiency'] /= ($efficiencyMax - $efficiencyMin);
+        //Normalize efficiency values, will primarily be -2 - +2
+        $result['efficiency'] = $result['efficiency'] - $normalizationMean;
+        $result['efficiency'] /= $normalizationSD;
+        //Save this normalized value
         $resultData[$key]['efficiency'] = $result['efficiency'];
+        
+        //Exclude outliers for the next step
+        if ($result['efficiency'] > 2) $result['efficiency'] = 2;
+        if ($result['efficiency'] < -2) $result['efficiency'] = -2;
+        //Shift normalized inlier efficiency values to 0 - 1
+        $result['efficiency'] /= 5;
+        $result['efficiency'] += 0.5;
+        //Save this normalized, shifted, inlier value
+        $resultData[$key]['normalizedEfficiency'] = $result['efficiency'];
 
         //Calculate the sort value
         $sort = $result['efficiency'] * $result['speed'];
