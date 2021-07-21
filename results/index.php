@@ -400,34 +400,39 @@ if ($worldExists) {
         foreach ($resultSelection as $key => $item)
             if ($item['itemName'] == $standoutItem && is_string($standoutItem))
                 $standoutItem = $key;
-    //Format standout item
+    //Finalize standout item
     if (is_int($standoutItem)) {
         $result = $resultSelection[$standoutItem];
-        $results .= '<b>Pickup this stand-out item!</b><br>' . str_replace(
-            [
-                '#COLOR',
-                '#ITEM_NAME',
-                '#LAST_UPLOAD',
-                '#PRICE',
-                '#EFFICIENCY',
-                '#ITEM_INFO',
-                '#SOLD',
-                '#SPEED',
-                '#SPECIAL',
-            ],
-            [
-                $result['coloring'],
-                $result['itemName'],
-                date("M j H:i", $result['lastUpload']),
-                $result['price'],
-                $result['efficiency'],
-                $result['itemRankTab'] . ', ' . $result['itemTab'],
-                $result['sales']['twoDays'],
-                $salesVelocityRanking[$result['speed']],
-                'border-2 border-yellow-300'
-            ],
-            $itemFormat
-        ) . '<br>';
+
+        //Don't recommend inefficient / slow items
+        if ($result['efficiency'] > $thresholdEfficiencyHigh)
+            if ($result['speed'] > $thresholdSaleVelocityHigh)
+                $results .= '<b>Pickup this stand-out item!</b><br>'
+                    . str_replace(
+                        [
+                            '#COLOR',
+                            '#ITEM_NAME',
+                            '#LAST_UPLOAD',
+                            '#PRICE',
+                            '#EFFICIENCY',
+                            '#ITEM_INFO',
+                            '#SOLD',
+                            '#SPEED',
+                            '#SPECIAL',
+                        ],
+                        [
+                            $result['coloring'],
+                            $result['itemName'],
+                            date("M j H:i", $result['lastUpload']),
+                            $result['price'],
+                            $result['efficiency'],
+                            $result['itemRankTab'] . ', ' . $result['itemTab'],
+                            $result['sales']['twoDays'],
+                            $salesVelocityRanking[$result['speed']],
+                            'border-2 border-yellow-300'
+                        ],
+                        $itemFormat
+                    ) . '<br>';
     }
 
     //Format top items for display
