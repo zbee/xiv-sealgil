@@ -320,6 +320,8 @@ if ($worldExists) {
         $resultData[$key]['sort'] = $sort;
     }
 
+    var_dump($resultData);
+
     //Prune low-efficiency items
     //If it's mostly good efficiency, prune all below the efficiency threshold
     if ($countEfficiencyWithinGoodThreshold >= 24) {
