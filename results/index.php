@@ -372,7 +372,7 @@ if ($worldExists) {
         $prune_keys = array_column($resultData, 'lastUpload');
         array_multisort($prune_keys, SORT_DESC, $resultData);
         for ($x = 0; $x < 12; $x++)
-            if (array_key_exists($resultData[$x]))
+            if (array_key_exists($x, $resultData))
                 $pruned[] = $resultData[$x];
         //Replace the data with the pruned data
         $resultData = $pruned;
