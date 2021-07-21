@@ -255,13 +255,13 @@ if ($worldExists) {
 
     //Prune low-efficiency items
     //If it's mostly good efficiency, prune all below the efficiency threshold
-    if ($countEfficiencyWithinGoodThreshold > 24) {
+    if ($countEfficiencyWithinGoodThreshold >= 24) {
         foreach ($resultData as $key => $item)
             if ($item['efficiency'] < $thresholdEfficiencyGood)
                 unset($resultData[$key]);
     }
     //If it's mostly high efficiency, prune all below
-    if ($countEfficiencyWithinHighThreshold > 24) {
+    if ($countEfficiencyWithinHighThreshold >= 24) {
         foreach ($resultData as $key => $item)
             if ($item['efficiency'] < $thresholdEfficiencyHigh)
                 unset($resultData[$key]);
@@ -271,19 +271,19 @@ if ($worldExists) {
 
     //Prune non-selling items
     //If there are a reasonable amount of good velocity items, prune the lowest
-    if ($countVelocityWithinGoodThreshold > 12) {
+    if ($countVelocityWithinGoodThreshold >= 12) {
         foreach ($resultData as $key => $item)
             if ($item['speed'] < 1)
                 unset($resultData[$key]);
     }
     //If there are a good amount of good velocity, prune the two lowest
-    if ($countVelocityWithinGoodThreshold > 24) {
+    if ($countVelocityWithinGoodThreshold >= 24) {
         foreach ($resultData as $key => $item)
             if ($item['speed'] < 2)
                 unset($resultData[$key]);
     }
     //If it's mostly high velocity, prune the three lowest velocities
-    if ($countVelocityWithinHighThreshold > 24) {
+    if ($countVelocityWithinHighThreshold >= 24) {
         foreach ($resultData as $key => $item)
             if ($item['speed'] < 3)
                 unset($resultData[$key]);
