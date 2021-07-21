@@ -278,8 +278,6 @@ if ($worldExists) {
         $averageSaleVelocity += $result['speed'];
     $averageSaleVelocity /= count($resultData);
 
-    var_dump(count($resultData));
-
     //Determining values for normalization
     $normalizationMean = multiGetMean($resultData, 'efficiency');
     $normalizationSD = multiGetStandardDeviation($resultData, 'efficiency');
@@ -331,13 +329,6 @@ if ($worldExists) {
         //Save sort value
         $resultData[$key]['sort'] = $sort;
     }
-    
-    var_dump(
-        $countEfficiencyWithinGoodThreshold,
-        $countEfficiencyWithinHighThreshold,
-        multiGetMean($resultData, 'efficiency'),
-        multiGetMedian($resultData, 'efficiency')
-    );
 
     //Prune low-efficiency items
     //If it's mostly good efficiency, prune all below the efficiency threshold
@@ -352,8 +343,6 @@ if ($worldExists) {
             if ($item['efficiency'] < $thresholdEfficiencyHigh)
                 unset($resultData[$key]);
     }
-    
-    var_dump(count($resultData));
 
     //Determining the age of the data set
     $recentUpload = 'older than 30 minutes';
