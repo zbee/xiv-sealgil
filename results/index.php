@@ -331,6 +331,12 @@ if ($worldExists) {
         //Save sort value
         $resultData[$key]['sort'] = $sort;
     }
+    
+    var_dump(
+        $countEfficiencyWithinGoodThreshold,
+        $countEfficiencyWithinHighThreshold,
+        multiGetMean($resultData, 'efficiency')
+    );
 
     //Prune low-efficiency items
     //If it's mostly good efficiency, prune all below the efficiency threshold
