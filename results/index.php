@@ -418,6 +418,8 @@ if ($worldExists) {
     //Displaying
     ///////////////////////////////////////////////////////////////////////////
 
+    var_dump($resultData);
+
     //Choose top items to display
     // sorting by a key and then choosing the top two items three times
     //Pick top selling items
