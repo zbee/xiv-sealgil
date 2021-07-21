@@ -294,7 +294,9 @@ if ($worldExists) {
         $result['efficiency'] = $result['efficiency'] - $normalizationMean;
         $result['efficiency'] /= $normalizationSD;
         //Save this normalized value
-        $resultData[$key]['efficiency'] = $result['efficiency'];
+        $resultData[$key]['efficiency'] = (float) number_format(
+            $result['efficiency'], 1
+        );
         
         //Exclude outliers for the next step
         if ($result['efficiency'] > 2) $result['efficiency'] = 2;
@@ -303,7 +305,9 @@ if ($worldExists) {
         $result['efficiency'] /= 5;
         $result['efficiency'] += 0.5;
         //Save this normalized, shifted, inlier value
-        $resultData[$key]['normalizedEfficiency'] = $result['efficiency'];
+        $resultData[$key]['normalizedEfficiency'] = (float) number_format(
+            $result['efficiency'], 2
+        );
 
         //Calculate the sort value
         $sort = $result['efficiency'] * $result['speed'];
