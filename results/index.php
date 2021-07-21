@@ -40,7 +40,7 @@ $countEfficiencyWithinHighThreshold = 0;
 ///////////////////////////////////////////////////////////////////////////
 
 //Pruning/Rating thresholds (on a -2 to +2 scale)
-$thresholdEfficiencyGood = 0;
+$thresholdEfficiencyGood = 0.5;
 $thresholdEfficiencyHigh = 1;
 
 $thresholdSaleVelocityOne = 5;
@@ -170,12 +170,6 @@ if ($worldExists) {
         $efficiency = $price / (int)$item[0];
         $efficiency = round($efficiency, 2);
 
-        //Running number of good efficiency items
-        if ($efficiency > $thresholdEfficiencyGood)
-            $countEfficiencyWithinGoodThreshold++;
-        if ($efficiency > $thresholdEfficiencyHigh)
-            $countEfficiencyWithinHighThreshold++;
-
         //Determine the recent sales
         foreach ($output->recentHistory as $sale) {
             $timestamp = $sale->timestamp;
@@ -295,8 +289,14 @@ if ($worldExists) {
         $result['efficiency'] /= $normalizationSD;
         //Save this normalized value
         $resultData[$key]['efficiency'] = (float) number_format(
-            $result['efficiency'], 1
+            $result['efficiency'], 2
         );
+
+        //Running number of good efficiency items
+        if ($efficiency > $thresholdEfficiencyGood)
+            $countEfficiencyWithinGoodThreshold++;
+        if ($efficiency > $thresholdEfficiencyHigh)
+            $countEfficiencyWithinHighThreshold++;
         
         //Exclude outliers for the next step
         if ($result['efficiency'] > 2) $result['efficiency'] = 2;
@@ -324,13 +324,11 @@ if ($worldExists) {
             $sort *= 0.5;
         //Further penalize very low efficiency
         if ($result['efficiency'] < $thresholdEfficiencyGood)
-            $sort *= 0.5;
+            $sort *= 0.8;
         
         //Save sort value
         $resultData[$key]['sort'] = $sort;
     }
-
-    var_dump($efficiencyMin, $efficiencyMax, $resultData);
 
     //Prune low-efficiency items
     //If it's mostly good efficiency, prune all below the efficiency threshold
@@ -488,7 +486,7 @@ if ($worldExists) {
                             $result['itemName'],
                             date("M j H:i", $result['lastUpload']),
                             number_format($result['price'], 0),
-                            number_format($result['efficiency'], 2),
+                            $result['efficiency'],
                             number_format($result['sort'], 1),
                             $result['itemRankTab'] . ', ' . $result['itemTab'],
                             $result['sales']['twoDays'],
@@ -525,7 +523,7 @@ if ($worldExists) {
                 $result['itemName'],
                 date("M j H:i", $result['lastUpload']),
                 number_format($result['price'], 0),
-                number_format($result['efficiency'], 2),
+                $result['efficiency'],
                 number_format($result['sort'], 1),
                 $result['itemRankTab'] . ', ' . $result['itemTab'],
                 $result['sales']['twoDays'],
