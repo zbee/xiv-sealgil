@@ -347,12 +347,12 @@ if ($worldExists) {
             if ($item['efficiency'] < $thresholdEfficiencyHigh)
                 unset($resultData[$key]);
     }
+    
+    var_dump(count($resultData));
 
     //Determining the age of the data set
     $recentUpload = 'older than 30 minutes';
     $uploadedFormat = '#w are within last #t minutes';
-    
-    var_dump(count($resultData));
 
     //Prune if the data set has recent information,
     // but only if it's not mostly recent and not mostly very recent
@@ -372,7 +372,8 @@ if ($worldExists) {
         $prune_keys = array_column($resultData, 'lastUpload');
         array_multisort($prune_keys, SORT_DESC, $resultData);
         for ($x = 0; $x < 12; $x++)
-            $pruned[] = $resultData[$x];
+            if (array_key_exists($resultData[$x]))
+                $pruned[] = $resultData[$x];
         //Replace the data with the pruned data
         $resultData = $pruned;
     }
