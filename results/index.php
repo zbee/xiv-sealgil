@@ -295,9 +295,9 @@ if ($worldExists) {
         );
 
         //Running number of good efficiency items
-        if ($efficiency > $thresholdEfficiencyGood)
+        if ($result['efficiency'] > $thresholdEfficiencyGood)
             $countEfficiencyWithinGoodThreshold++;
-        if ($efficiency > $thresholdEfficiencyHigh)
+        if ($result['efficiency'] > $thresholdEfficiencyHigh)
             $countEfficiencyWithinHighThreshold++;
         
         //Exclude outliers for the next step
@@ -325,14 +325,12 @@ if ($worldExists) {
         if ($result['speed'] < $thresholdSaleVelocityGood)
             $sort *= 0.5;
         //Further penalize very low efficiency
-        if ($result['efficiency'] < $thresholdEfficiencyGood)
+        if ($resultData[$key]['efficiency'] < $thresholdEfficiencyGood)
             $sort *= 0.8;
         
         //Save sort value
         $resultData[$key]['sort'] = $sort;
     }
-
-    var_dump(count($resultData));
 
     //Prune low-efficiency items
     //If it's mostly good efficiency, prune all below the efficiency threshold
@@ -425,8 +423,6 @@ if ($worldExists) {
     ///////////////////////////////////////////////////////////////////////////
     //Displaying
     ///////////////////////////////////////////////////////////////////////////
-
-    var_dump(count($resultData));
 
     //Choose top items to display
     // sorting by a key and then choosing the top two items three times
