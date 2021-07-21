@@ -66,7 +66,7 @@ $thresholdUploadRecent = $time - $thresholdUploadRecentNumber*$minutes;
 $thresholdSalesWithinNowThreshold = $time - 3*$hours;
 $thresholdSalesRecent = $time - 1*$days;
 $thresholdSalesWithinNearThreshold = $time - 2*$days;
-$thresholdSalesWithinFearThreshold = $time - 7*$days;
+$thresholdSalesWithinFarThreshold = $time - 7*$days;
 
 ///////////////////////////////////////////////////////////////////////////
 //Setup
