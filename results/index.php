@@ -1,5 +1,6 @@
 <?php
 require('../assets/php/header.php');
+require('../assets/php/math.php');
 
 //Set up variables
 $desiredWorld = $_GET['world'];
@@ -284,13 +285,18 @@ if ($worldExists) {
     $averageSaleVelocity /= count($resultData);
 
     //Determining values for min/max of efficiency values for normalization
+    $normalizationMean = multiGetMean($resultData, 'efficiency');
+    $normalizationSD = multiGetStandardDeviation($resultData, 'efficiency');
     $efficiencyMin = 0;
     $efficiencyMax = 0;
     foreach ($resultData as $result) {
-        if ($result['efficiency'] < $efficiencyMin || $efficiencyMin == 0)
-            $efficiencyMin = $result['efficiency'];
-        if ($result['efficiency'] > $efficiencyMax)
-            $efficiencyMax = $result['efficiency'];
+        $e = $result['efficiency'];
+        if ($e < $efficiencyMin || $efficiencyMin == 0)
+            if ($e > $e-$normalizationSD*2)
+                $efficiencyMin = $e;
+        if ($e > $efficiencyMax)
+            if ($e < $e-$normalizationSD*2)
+                $efficiencyMax = $result['efficiency'];
     }
     
     //Normalizing efficiency values, determining sort value
