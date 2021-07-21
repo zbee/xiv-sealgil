@@ -40,7 +40,7 @@ $countEfficiencyWithinHighThreshold = 0;
 ///////////////////////////////////////////////////////////////////////////
 
 //Pruning/Rating thresholds (on a -2 to +2 scale)
-$thresholdEfficiencyGood = -0.5;
+$thresholdEfficiencyGood = -1;
 $thresholdEfficiencyHigh = 0.25;
 
 $thresholdSaleVelocityOne = 5;
