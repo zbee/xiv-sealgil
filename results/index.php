@@ -351,6 +351,8 @@ if ($worldExists) {
     //Determining the age of the data set
     $recentUpload = 'older than 30 minutes';
     $uploadedFormat = '#w are within last #t minutes';
+    
+    var_dump(count($resultData));
 
     //Prune if the data set has recent information,
     // but only if it's not mostly recent and not mostly very recent
@@ -374,6 +376,7 @@ if ($worldExists) {
         //Replace the data with the pruned data
         $resultData = $pruned;
     }
+
     //If it's mostly pretty recent, prune the oldest
     if ($countUploadedWithinRecentThreshold > 35) {
         foreach ($resultData as $key => $item)
