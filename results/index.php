@@ -255,13 +255,13 @@ if ($worldExists) {
 
     //Prune low-efficiency items
     //If it's mostly good efficiency, prune all below the efficiency threshold
-    if ($countEfficiencyWithinGoodThreshold > 30) {
+    if ($countEfficiencyWithinGoodThreshold > 24) {
         foreach ($resultData as $key => $item)
             if ($item['efficiency'] < $thresholdEfficiencyGood)
                 unset($resultData[$key]);
     }
     //If it's mostly high efficiency, prune all below
-    if ($countEfficiencyWithinHighThreshold > 30) {
+    if ($countEfficiencyWithinHighThreshold > 24) {
         foreach ($resultData as $key => $item)
             if ($item['efficiency'] < $thresholdEfficiencyHigh)
                 unset($resultData[$key]);
@@ -269,19 +269,19 @@ if ($worldExists) {
 
     //Prune non-selling items
     //If there are a reasonable amount of good velocity items, prune the lowest
-    if ($countVelocityWithinGoodThreshold > 20) {
+    if ($countVelocityWithinGoodThreshold > 12) {
         foreach ($resultData as $key => $item)
             if ($item['speed'] < 1)
                 unset($resultData[$key]);
     }
-    //If it's all good velocity, prune the two lowest velocities
-    if ($countVelocityWithinGoodThreshold > 50) {
+    //If there are a good amount of good velocity, prune the two lowest
+    if ($countVelocityWithinGoodThreshold > 24) {
         foreach ($resultData as $key => $item)
             if ($item['speed'] < 2)
                 unset($resultData[$key]);
     }
     //If it's mostly high velocity, prune the three lowest velocities
-    if ($countVelocityWithinHighThreshold > 30) {
+    if ($countVelocityWithinHighThreshold > 24) {
         foreach ($resultData as $key => $item)
             if ($item['speed'] < 3)
                 unset($resultData[$key]);
@@ -292,11 +292,11 @@ if ($worldExists) {
     $uploadedFormat = '#w are within last #t minutes';
 
     //Prune if the data set has recent information,
-    // but only if it's not mostly recent
+    // but only if it's not mostly recent and not mostly very recent
     // (these numbers are static due to being a percentage of the dataset size)
     if (
         $countUploadedWithinRecentThreshold > 10
-        && $countUploadedWithinRecentThreshold < 50
+        && $countUploadedWithinRecentThreshold < 45
         && $countUploadedWithinNowThreshold < 30
     ) {
         $recentUpload = str_replace(
@@ -304,23 +304,23 @@ if ($worldExists) {
             ['displayed', $thresholdUploadRecentNumber],
             $uploadedFormat
         );
-        //As below, sort by the upload date and choose only the top 10 items
+        //As below, sort by the upload date and choose only the top 12 items
         $pruned = [];
         $prune_keys = array_column($resultData, 'lastUpload');
         array_multisort($prune_keys, SORT_DESC, $resultData);
-        for ($x = 0; $x < 10; $x++)
+        for ($x = 0; $x < 12; $x++)
             $pruned[] = $resultData[$x];
         //Replace the data with the pruned data
         $resultData = $pruned;
     }
     //If it's mostly pretty recent, prune the oldest
-    if ($countUploadedWithinRecentThreshold > 50) {
+    if ($countUploadedWithinRecentThreshold > 35) {
         foreach ($resultData as $key => $item)
             if ($item['lastUpload'] < $thresholdUploadRecent)
                 unset($resultData[$key]);
     }
     //If it's mostly very recent, prune the oldest
-    if ($countUploadedWithinNowThreshold > 50) {
+    if ($countUploadedWithinNowThreshold > 35) {
         foreach ($resultData as $key => $item)
             if ($item['lastUpload'] < $thresholdUploadNow)
                 unset($resultData[$key]);
@@ -363,16 +363,19 @@ if ($worldExists) {
 
     //Choose top items to display
     // sorting by a key and then choosing the top two items three times
+    //Pick top selling items
     $speed_keys = array_column($resultData, 'speed');
     array_multisort($speed_keys, SORT_DESC, $resultData);
     $resultSelection[] = $resultData[0];
     $resultSelection[] = $resultData[1];
 
+    //Pick top aggregate items
     $sort_keys = array_column($resultData, 'sort');
     array_multisort($sort_keys, SORT_DESC, $resultData);
     $resultSelection[] = $resultData[0];
     $resultSelection[] = $resultData[1];
 
+    //Pick top efficiency items
     $efficiency_keys = array_column($resultData, 'efficiency');
     array_multisort($efficiency_keys, SORT_DESC, $resultData);
     $resultSelection[] = $resultData[0];
