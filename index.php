@@ -58,8 +58,8 @@
 </div>
 
 <p class="text-sm">
-  <i>This works better if you contribute to universalis</i>. If you use ACT or otherwise load addons for FFXIV, 
-  <a href="https://universalis.app/contribute" class="underline">click here to start contributing</a>. (ACT plugin is the simplest)
+  <i>This works better if you contribute to universalis</i>. If you use ACT, 
+  <a href="https://universalis.app/contribute" class="underline">click here to start contributing</a>. (ACT plugin is the simplest, Quick Launcher has it built-in)
 </p>
 
 
