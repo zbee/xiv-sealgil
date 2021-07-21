@@ -242,7 +242,8 @@ if ($worldExists) {
             'sales' => [
                 'threeHours' => $salesWithinNowThreshold,
                 'oneDay' => $salesWithinRecentThreshold,
-                'twoDays' => $salesWithinNearThreshold
+                'twoDays' => $salesWithinNearThreshold,
+                'oneWeek' => $salesWithinFarThreshold
             ],
             'lastUpload' => $uploadTime,
             'uploadedWithinNowThreshold' => $uploadedWithinNowThreshold,
@@ -301,27 +302,27 @@ if ($worldExists) {
         $resultData[$key]['efficiency'] = $result['efficiency'];
 
         //Calculate the sort value
-        $sort = $result['efficiency'] * $salesVelocity;
+        $sort = $result['efficiency'] * $result['speed'];
 
         //Penalize sort if most sales are within Recent and not Far thresholds
-        if ($salesWithinFarThreshold < $salesWithinRecentThreshold * 1.25)
+        if ($result['sales']['oneWeek'] < $result['sales']['oneDay'] * 1.25)
             $sort *= 0.8;
         //Penalize sort if most sales are within Now and not Far thresholds
-        if ($salesWithinFarThreshold < $salesWithinNowThreshold * 1.5)
+        if ($result['sales']['oneWeek'] < $result['sales']['threeHours'] * 1.5)
             $sort *= 0.5;
         
         //Further penalize very low velocity
-        if ($salesVelocity < $thresholdSaleVelocityGood)
+        if ($result['speed'] < $thresholdSaleVelocityGood)
             $sort *= 0.5;
         //Further penalize very low efficiency
-        if ($efficiency < $thresholdEfficiencyGood)
+        if ($result['efficiency'] < $thresholdEfficiencyGood)
             $sort *= 0.5;
         
         //Save sort value
         $resultData[$key]['sort'] = $sort;
     }
 
-    var_dump($resultData);
+    var_dump($efficiencyMin, $efficiencyMax, $resultData);
 
     //Prune low-efficiency items
     //If it's mostly good efficiency, prune all below the efficiency threshold
