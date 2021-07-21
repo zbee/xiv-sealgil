@@ -278,6 +278,8 @@ if ($worldExists) {
         $averageSaleVelocity += $result['speed'];
     $averageSaleVelocity /= count($resultData);
 
+    var_dump(count($resultData));
+
     //Determining values for normalization
     $normalizationMean = multiGetMean($resultData, 'efficiency');
     $normalizationSD = multiGetStandardDeviation($resultData, 'efficiency');
@@ -329,6 +331,8 @@ if ($worldExists) {
         //Save sort value
         $resultData[$key]['sort'] = $sort;
     }
+
+    var_dump(count($resultData));
 
     //Prune low-efficiency items
     //If it's mostly good efficiency, prune all below the efficiency threshold
@@ -418,7 +422,7 @@ if ($worldExists) {
     //Displaying
     ///////////////////////////////////////////////////////////////////////////
 
-    var_dump($resultData);
+    var_dump(count($resultData));
 
     //Choose top items to display
     // sorting by a key and then choosing the top two items three times
