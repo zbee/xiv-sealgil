@@ -39,8 +39,8 @@ $countEfficiencyWithinHighThreshold = 0;
 ///////////////////////////////////////////////////////////////////////////
 
 //Pruning/Rating thresholds
-$thresholdEfficiencyGood = 0.5;
-$thresholdEfficiencyHigh = 1.0;
+$thresholdEfficiencyGood = 0.3;
+$thresholdEfficiencyHigh = 0.5;
 
 $thresholdSaleVelocityOne = 5;
 $thresholdSaleVelocityTwo = 10;
@@ -94,7 +94,7 @@ $itemFormat = <<<FRM
         title="The efficiency of the Seals to Gil conversion. In parentheses:
         An arbitrary scale of the sorted list, combining and accounting for
         multiple displayed metrics.">
-        #EFFICIENCY&eta; (#SORT&Gamma;)
+        #EFFICIENCY&eta;<br>(#SORT&Gamma;)
     </div>
 
     <div class="w-3/6 text-left text-gray-400 text-sm"
@@ -226,23 +226,6 @@ if ($worldExists) {
         if ($uploadTime > $thresholdSalesWithinNowThreshold)
             $coloring = $dateColoring[0];
 
-        //Calculate the sort value
-        $sort = $efficiency * $salesVelocity;
-
-        //Penalize sort if most sales are within Recent and not Far thresholds
-        if ($salesWithinFarThreshold < $salesWithinRecentThreshold * 1.25)
-            $sort *= 0.8;
-        //Penalize sort if most sales are within Now and not Far thresholds
-        if ($salesWithinFarThreshold < $salesWithinNowThreshold * 1.5)
-            $sort *= 0.5;
-        
-        //Further penalize very low velocity
-        if ($salesVelocity < $thresholdSaleVelocityGood)
-            $sort *= 0.5;
-        //Further penalize very low efficiency
-        if ($efficiency < $thresholdEfficiencyGood)
-            $sort *= 0.5;
-
         //Make sure to close out the API request
         curl_close($curl);
 
@@ -250,7 +233,6 @@ if ($worldExists) {
         $resultData[] = [
             'itemID' => $itemID,
             'itemName' => $item[1],
-            'sort' => $sort,
             'itemRankTab' => $item[2],
             'itemTab' => $item[3],
             'price' => $price,
@@ -274,20 +256,6 @@ if ($worldExists) {
     //Pruning, determining dataset averages
     ///////////////////////////////////////////////////////////////////////////
 
-    //Prune low-efficiency items
-    //If it's mostly good efficiency, prune all below the efficiency threshold
-    if ($countEfficiencyWithinGoodThreshold >= 24) {
-        foreach ($resultData as $key => $item)
-            if ($item['efficiency'] < $thresholdEfficiencyGood)
-                unset($resultData[$key]);
-    }
-    //If it's mostly high efficiency, prune all below
-    if ($countEfficiencyWithinHighThreshold >= 24) {
-        foreach ($resultData as $key => $item)
-            if ($item['efficiency'] < $thresholdEfficiencyHigh)
-                unset($resultData[$key]);
-    }
-
     //Prune non-selling items
     //If there are a reasonable amount of good velocity items, prune the lowest
     if ($countVelocityWithinGoodThreshold >= 12) {
@@ -305,6 +273,63 @@ if ($worldExists) {
     if ($countVelocityWithinHighThreshold >= 24) {
         foreach ($resultData as $key => $item)
             if ($item['speed'] < 3)
+                unset($resultData[$key]);
+    }
+
+    //Determining average sale velocity
+    $averageSaleVelocity = 0;
+    foreach ($resultData as $result)
+        $averageSaleVelocity += $result['speed'];
+    $averageSaleVelocity /= count($resultData);
+
+    //Determining values for min/max of efficiency values for normalization
+    $efficiencyMin = 0;
+    $efficiencyMax = 0;
+    foreach ($resultData as $result) {
+        if ($result['efficiency'] < $efficiencyMin || $efficiencyMin == 0)
+            $efficiencyMin = $result['efficiency'];
+        if ($result['efficiency'] > $efficiencyMax)
+            $efficiencyMax = $result['efficiency'];
+    }
+    
+    //Normalizing efficiency values, determining sort value
+    foreach ($resultData as $key => $result) {
+        //Normalize efficiency values
+        $result['efficiency'] = ($result['efficiency'] - $efficiencyMin);
+        $result['efficiency'] /= ($efficiencyMax - $efficiencyMin);
+
+        //Calculate the sort value
+        $sort = $result['efficiency'] * $salesVelocity;
+
+        //Penalize sort if most sales are within Recent and not Far thresholds
+        if ($salesWithinFarThreshold < $salesWithinRecentThreshold * 1.25)
+            $sort *= 0.8;
+        //Penalize sort if most sales are within Now and not Far thresholds
+        if ($salesWithinFarThreshold < $salesWithinNowThreshold * 1.5)
+            $sort *= 0.5;
+        
+        //Further penalize very low velocity
+        if ($salesVelocity < $thresholdSaleVelocityGood)
+            $sort *= 0.5;
+        //Further penalize very low efficiency
+        if ($efficiency < $thresholdEfficiencyGood)
+            $sort *= 0.5;
+        
+        //Save sort value
+        $result['sort'] = $sort;
+    }
+
+    //Prune low-efficiency items
+    //If it's mostly good efficiency, prune all below the efficiency threshold
+    if ($countEfficiencyWithinGoodThreshold >= 24) {
+        foreach ($resultData as $key => $item)
+            if ($item['efficiency'] < $thresholdEfficiencyGood)
+                unset($resultData[$key]);
+    }
+    //If it's mostly high efficiency, prune all below
+    if ($countEfficiencyWithinHighThreshold >= 24) {
+        foreach ($resultData as $key => $item)
+            if ($item['efficiency'] < $thresholdEfficiencyHigh)
                 unset($resultData[$key]);
     }
 
