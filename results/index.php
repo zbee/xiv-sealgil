@@ -55,12 +55,14 @@ $thresholdSaleVelocityHigh = 3;
 //Time-ago thresholds
 $thresholdUploadNowNumber = 5;
 $thresholdUploadRecentNumber = 30;
+
 $thresholdUploadNow = $time - $thresholdUploadNowNumber*$minutes;
 $thresholdUploadRecent = $time - $thresholdUploadRecentNumber*$minutes;
 
-$thresholdsalesWithinNowThreshold = $time - 3*$hours;
+$thresholdSalesWithinNowThreshold = $time - 3*$hours;
 $thresholdSalesRecent = $time - 1*$days;
-$thresholdsalesWithinNearThreshold = $time - 2*$days;
+$thresholdSalesWithinNearThreshold = $time - 2*$days;
+$thresholdSalesWithinFearThreshold = $time - 7*$days;
 
 ///////////////////////////////////////////////////////////////////////////
 //Setup
@@ -146,6 +148,7 @@ if ($worldExists) {
         $salesWithinNowThreshold = 0;
         $salesWithinRecentThreshold = 0;
         $salesWithinNearThreshold = 0;
+        $salesWithinFarThreshold = 0;
         $price = 0;
         $lastSoldPrice = 0;
         $efficiency = 0;
@@ -173,12 +176,14 @@ if ($worldExists) {
         //Determine the recent sales
         foreach ($output->recentHistory as $sale) {
             $timestamp = $sale->timestamp;
-            if ($timestamp > $thresholdsalesWithinNearThreshold)
+            if ($timestamp > $thresholdSalesWithinNearThreshold)
                 $salesWithinNearThreshold++;
             if ($timestamp > $thresholdSalesRecent)
                 $salesWithinRecentThreshold++;
-            if ($timestamp > $thresholdsalesWithinNowThreshold)
+            if ($timestamp > $thresholdSalesWithinNowThreshold)
                 $salesWithinNowThreshold++;
+            if ($timestamp > $thresholdSalesWithinFarThreshold)
+                $salesWithinFarThreshold++;
         }
 
         //Rate the sale speed
@@ -216,11 +221,25 @@ if ($worldExists) {
         //Determine age coloring
         if ($uploadTime > $thresholdSalesRecent)
             $coloring = $dateColoring[1];
-        if ($uploadTime > $thresholdsalesWithinNowThreshold)
+        if ($uploadTime > $thresholdSalesWithinNowThreshold)
             $coloring = $dateColoring[0];
 
         //Calculate the sort value
         $sort = $efficiency * $salesVelocity;
+
+        //Penalize sort if most sales are within Recent and not Far thresholds
+        if ($salesWithinFarThreshold < $salesWithinRecentThreshold * 1.25)
+            $sort *= 0.8;
+        //Penalize sort if most sales are within Now and not Far thresholds
+        if ($salesWithinFarThreshold < $salesWithinNowThreshold * 1.5)
+            $sort *= 0.5;
+        
+        //Further penalize very low velocity
+        if ($salesVelocity < $thresholdSaleVelocityGood)
+            $sort *= 0.5;
+        //Further penalize very low efficiency
+        if ($efficiency < $thresholdEfficiencyGood)
+            $sort *= 0.5;
 
         //Make sure to close out the API request
         curl_close($curl);
