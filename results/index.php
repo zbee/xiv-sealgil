@@ -295,6 +295,7 @@ if ($worldExists) {
     //Normalizing efficiency values, determining sort value
     foreach ($resultData as $key => $result) {
         //Normalize efficiency values
+        $resultData[$key]['UnNormalizedEfficiency'] = $result['efficiency'];
         $result['efficiency'] = ($result['efficiency'] - $efficiencyMin);
         $result['efficiency'] /= ($efficiencyMax - $efficiencyMin);
         $resultData[$key]['efficiency'] = $result['efficiency'];
