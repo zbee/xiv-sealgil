@@ -15,8 +15,8 @@ $salesVelocityRanking = [
     '<p class="text-gray-300">okay</p>',
     '<p class="text-yellow-300">good</p>',
     '<p class="text-green-300">great</p>',
-    '<p class="text-pink-400">perfect</p>',
-    '<p class="text-purple-400">flowing!</p>',
+    '<p class="text-purple-400">perfect</p>',
+    '<p class="text-pink-400">flowing!</p>',
 ];
 $dateColoring = [
     'gray-900',
