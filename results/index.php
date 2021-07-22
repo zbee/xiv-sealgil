@@ -173,6 +173,7 @@ if ($worldExists) {
         //Determine the recent sales
         foreach ($output->recentHistory as $sale) {
             $timestamp = $sale->timestamp;
+            var_dump($sale);
             if ($timestamp > $thresholdSalesWithinNearThreshold)
                 $salesWithinNearThreshold++;
             if ($timestamp > $thresholdSalesRecent)
