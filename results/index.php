@@ -47,8 +47,8 @@ $thresholdSaleVelocityOne = 10;
 $thresholdSaleVelocityTwo = 20;
 $thresholdSaleVelocityThree = 40;
 $thresholdSaleVelocityFour = 50;
-$thresholdSaleVelocityFive = 40;
-$thresholdSaleVelocitySix = 50;
+$thresholdSaleVelocityFive = 30;
+$thresholdSaleVelocitySix = 40;
 
 $thresholdSaleVelocityGood = 2;
 $thresholdSaleVelocityHigh = 3;
