@@ -467,8 +467,8 @@ if ($worldExists) {
         $result = $resultSelection[$standoutItem];
 
         //Don't recommend inefficient / slow items
-        if ($result['efficiency'] > $thresholdEfficiencyHigh)
-            if ($result['speed'] >= $thresholdSaleVelocityHigh)
+        if ($result['normalizedEfficiency'] > $thresholdEfficiencyHigh)
+            if ($result['speed'] > $thresholdSaleVelocityHigh)
                 $results .= '<b>Pickup this stand-out item!</b><br>'
                     . str_replace(
                         [
