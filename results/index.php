@@ -43,12 +43,12 @@ $countEfficiencyWithinHighThreshold = 0;
 $thresholdEfficiencyGood = 0.3;
 $thresholdEfficiencyHigh = 0.55;
 
-$thresholdSaleVelocityOne = 5;
-$thresholdSaleVelocityTwo = 10;
-$thresholdSaleVelocityThree = 5;
-$thresholdSaleVelocityFour = 10;
-$thresholdSaleVelocityFive = 10;
-$thresholdSaleVelocitySix = 20;
+$thresholdSaleVelocityOne = 10;
+$thresholdSaleVelocityTwo = 20;
+$thresholdSaleVelocityThree = 40;
+$thresholdSaleVelocityFour = 50;
+$thresholdSaleVelocityFive = 40;
+$thresholdSaleVelocitySix = 50;
 
 $thresholdSaleVelocityGood = 2;
 $thresholdSaleVelocityHigh = 3;
@@ -173,15 +173,14 @@ if ($worldExists) {
         //Determine the recent sales
         foreach ($output->recentHistory as $sale) {
             $timestamp = $sale->timestamp;
-            var_dump($sale);
             if ($timestamp > $thresholdSalesWithinNearThreshold)
-                $salesWithinNearThreshold++;
+                $salesWithinNearThreshold += $sale->quantity;
             if ($timestamp > $thresholdSalesRecent)
-                $salesWithinRecentThreshold++;
+                $salesWithinRecentThreshold += $sale->quantity;
             if ($timestamp > $thresholdSalesWithinNowThreshold)
-                $salesWithinNowThreshold++;
+                $salesWithinNowThreshold += $sale->quantity;
             if ($timestamp > $thresholdSalesWithinFarThreshold)
-                $salesWithinFarThreshold++;
+                $salesWithinFarThreshold += $sale->quantity;
         }
 
         //Rate the sale speed
