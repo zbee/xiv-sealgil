@@ -44,11 +44,11 @@ $thresholdEfficiencyGood = 0.3;
 $thresholdEfficiencyHigh = 0.55;
 
 $thresholdSaleVelocityOne = 10;
-$thresholdSaleVelocityTwo = 20;
-$thresholdSaleVelocityThree = 40;
-$thresholdSaleVelocityFour = 50;
+$thresholdSaleVelocityTwo = 30;
+$thresholdSaleVelocityThree = 50;
+$thresholdSaleVelocityFour = 75;
 $thresholdSaleVelocityFive = 30;
-$thresholdSaleVelocitySix = 40;
+$thresholdSaleVelocitySix = 50;
 
 $thresholdSaleVelocityGood = 2;
 $thresholdSaleVelocityHigh = 3;
