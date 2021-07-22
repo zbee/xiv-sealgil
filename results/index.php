@@ -39,9 +39,9 @@ $countEfficiencyWithinHighThreshold = 0;
 //Config
 ///////////////////////////////////////////////////////////////////////////
 
-//Pruning/Rating thresholds (on a -2 to +2 scale)
-$thresholdEfficiencyGood = -2;
-$thresholdEfficiencyHigh = 0;
+//Pruning/Rating thresholds (on a 0.0 to 1.0 scale)
+$thresholdEfficiencyGood = 0.3;
+$thresholdEfficiencyHigh = 0.55;
 
 $thresholdSaleVelocityOne = 5;
 $thresholdSaleVelocityTwo = 10;
@@ -291,12 +291,6 @@ if ($worldExists) {
         $resultData[$key]['efficiency'] = (float) number_format(
             $result['efficiency'], 2
         );
-
-        //Running number of good efficiency items
-        if ($result['efficiency'] > $thresholdEfficiencyGood)
-            $countEfficiencyWithinGoodThreshold++;
-        if ($result['efficiency'] > $thresholdEfficiencyHigh)
-            $countEfficiencyWithinHighThreshold++;
         
         //Exclude outliers for the next step
         if ($result['efficiency'] > 2) $result['efficiency'] = 2;
@@ -308,6 +302,12 @@ if ($worldExists) {
         $resultData[$key]['normalizedEfficiency'] = (float) number_format(
             $result['efficiency'], 2
         );
+
+        //Running number of good efficiency items
+        if ($result['efficiency'] > $thresholdEfficiencyGood)
+            $countEfficiencyWithinGoodThreshold++;
+        if ($result['efficiency'] > $thresholdEfficiencyHigh)
+            $countEfficiencyWithinHighThreshold++;
 
         //Calculate the sort value
         $sort = $result['efficiency'] * $result['speed'];
@@ -323,7 +323,7 @@ if ($worldExists) {
         if ($result['speed'] < $thresholdSaleVelocityGood)
             $sort *= 0.5;
         //Further penalize very low efficiency
-        if ($resultData[$key]['efficiency'] < $thresholdEfficiencyGood)
+        if ($result['efficiency'] < $thresholdEfficiencyGood)
             $sort *= 0.8;
         
         //Save sort value
