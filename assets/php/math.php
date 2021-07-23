@@ -10,7 +10,6 @@
  * @throws Exception If it's not an array
  */
 function multiGetMedian($arr, $key) {
-    var_dump($arr);
 
     //Make sure it's an array.
     if (!is_array($arr))
@@ -57,6 +56,7 @@ function multiGetMedian($arr, $key) {
 }
 
 function multiGetMean($arr, $key) {
+    var_dump($arr);
     //Make sure it's an array.
     if (!is_array($arr))
         throw new Exception('$arr must be an array!');
