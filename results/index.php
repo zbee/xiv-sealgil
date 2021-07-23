@@ -247,6 +247,8 @@ if ($worldExists) {
         ];
     }
 
+    var_dump(count($resultData));
+
 
     ///////////////////////////////////////////////////////////////////////////
     //Pruning, determining dataset averages
@@ -277,6 +279,8 @@ if ($worldExists) {
     foreach ($resultData as $result)
         $averageSaleVelocity += $result['speed'];
     $averageSaleVelocity /= count($resultData);
+
+    var_dump(count($resultData));
 
     //Determining values for normalization
     $normalizationMean = multiGetMean($resultData, 'efficiency');
