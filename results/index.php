@@ -44,11 +44,11 @@ $thresholdEfficiencyGood = 0.3;
 $thresholdEfficiencyHigh = 0.55;
 
 $thresholdSaleVelocityOne = 5;
-$thresholdSaleVelocityTwo = 25;
-$thresholdSaleVelocityThree = 50;
-$thresholdSaleVelocityFour = 125;
-$thresholdSaleVelocityFive = 30;
-$thresholdSaleVelocitySix = 75;
+$thresholdSaleVelocityTwo = 10;
+$thresholdSaleVelocityThree = 5;
+$thresholdSaleVelocityFour = 10;
+$thresholdSaleVelocityFive = 5;
+$thresholdSaleVelocitySix = 10;
 
 $thresholdSaleVelocityGood = 2;
 $thresholdSaleVelocityHigh = 3;
@@ -174,13 +174,13 @@ if ($worldExists) {
         foreach ($output->recentHistory as $sale) {
             $timestamp = $sale->timestamp;
             if ($timestamp > $thresholdSalesWithinNearThreshold)
-                $salesWithinNearThreshold += $sale->quantity;
+                $salesWithinNearThreshold++;
             if ($timestamp > $thresholdSalesRecent)
-                $salesWithinRecentThreshold += $sale->quantity;
+                $salesWithinRecentThreshold++;
             if ($timestamp > $thresholdSalesWithinNowThreshold)
-                $salesWithinNowThreshold += $sale->quantity;
+                $salesWithinNowThreshold++;
             if ($timestamp > $thresholdSalesWithinFarThreshold)
-                $salesWithinFarThreshold += $sale->quantity;
+                $salesWithinFarThreshold++;
         }
 
         //Rate the sale speed
