@@ -18,10 +18,10 @@ function multiGetMedian($arr, $key) {
     if (empty($arr))
         throw new Exception('$arr must be a populated array!');
     //Make sure it's a nested array.
-    if (!array_key_exists(0, $arr))
+    if (!array_key_exists(array_key_first($arr), $arr))
         throw new Exception('$arr[0] must be an array!');
     //Make sure the specified key is in the nested array.
-    if (!array_key_exists($key, $arr[0]))
+    if (!array_key_exists($key, $arr[array_key_first($arr)]))
         throw new Exception('$arr must contain $key!');
 
     //Save values into their own array
@@ -56,7 +56,6 @@ function multiGetMedian($arr, $key) {
 }
 
 function multiGetMean($arr, $key) {
-    var_dump($arr);
     //Make sure it's an array.
     if (!is_array($arr))
         throw new Exception('$arr must be an array!');
@@ -64,10 +63,10 @@ function multiGetMean($arr, $key) {
     if (empty($arr))
         throw new Exception('$arr must be a populated array!');
     //Make sure it's a nested array.
-    if (!array_key_exists(0, $arr))
+    if (!array_key_exists(array_key_first($arr), $arr))
         throw new Exception('$arr[0] must be an array!');
     //Make sure the specified key is in the nested array.
-    if (!array_key_exists($key, $arr[0]))
+    if (!array_key_exists($key, $arr[array_key_first($arr)]))
         throw new Exception('$arr must contain $key!');
 
     //Save values into their own array
@@ -88,10 +87,10 @@ function multiGetStandardDeviation ($arr, $key) {
     if (empty($arr))
         throw new Exception('$arr must be a populated array!');
     //Make sure it's a nested array.
-    if (!array_key_exists(0, $arr))
+    if (!array_key_exists(array_key_first($arr), $arr))
         throw new Exception('$arr[0] must be an array!');
     //Make sure the specified key is in the nested array.
-    if (!array_key_exists($key, $arr[0]))
+    if (!array_key_exists($key, $arr[array_key_first($arr)]))
         throw new Exception('$arr must contain $key!');
 
     //Save average of array while it's still a nested array
