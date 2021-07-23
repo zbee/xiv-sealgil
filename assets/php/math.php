@@ -17,7 +17,7 @@ function multiGetMedian($arr, $key) {
     if (empty($arr))
         throw new Exception('$arr must be a populated array!');
     //Make sure it's a nested array.
-    if (!is_array($arr[0]))
+    if (!array_key_exists(0, $arr))
         throw new Exception('$arr[0] must be an array!');
     //Make sure the specified key is in the nested array.
     if (!array_key_exists($key, $arr[0]))
@@ -62,7 +62,7 @@ function multiGetMean($arr, $key) {
     if (empty($arr))
         throw new Exception('$arr must be a populated array!');
     //Make sure it's a nested array.
-    if (!is_array($arr[0]))
+    if (!array_key_exists(0, $arr))
         throw new Exception('$arr[0] must be an array!');
     //Make sure the specified key is in the nested array.
     if (!array_key_exists($key, $arr[0]))
@@ -86,7 +86,7 @@ function multiGetStandardDeviation ($arr, $key) {
     if (empty($arr))
         throw new Exception('$arr must be a populated array!');
     //Make sure it's a nested array.
-    if (!is_array($arr[0]))
+    if (!array_key_exists(0, $arr))
         throw new Exception('$arr[0] must be an array!');
     //Make sure the specified key is in the nested array.
     if (!array_key_exists($key, $arr[0]))
