@@ -55,9 +55,8 @@ $thresholdSaleVelocityHigh = 3;
 
 //Time-ago thresholds
 $thresholdUploadNowNumber = 5;
-$thresholdUploadRecentNumber = 30;
-
 $thresholdUploadNow = $time - $thresholdUploadNowNumber*$minutes;
+$thresholdUploadRecentNumber = 30;
 $thresholdUploadRecent = $time - $thresholdUploadRecentNumber*$minutes;
 
 $thresholdSalesWithinNowThreshold = $time - 3*$hours;
@@ -487,7 +486,7 @@ if ($worldExists) {
                             $result['coloring'],
                             $result['itemName'],
                             date("M j H:i", $result['lastUpload']),
-                            number_format($result['price'], 0),
+                            number_format($result['lastSoldFor'], 0),
                             $result['normalizedEfficiency'],
                             number_format($result['sort'], 1),
                             $result['itemRankTab'] . ', ' . $result['itemTab'],
