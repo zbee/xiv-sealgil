@@ -159,11 +159,16 @@ if ($worldExists) {
         $coloring = $dateColoring[2];
 
         //Determine the price to use, 1 gil under the lowest listed
+        $lastSoldPrice = (int)$output->recentHistory[0]->pricePerUnit;
         if ($output->listings != null) {
             $price = (int)$output->listings[0]->pricePerUnit;
             $price--;
+
+            //Use lastSoldPrice instead of the current lowest,
+            // if the current lowest is skewed
+            if ($price*0.5 > $lastSoldPrice)
+                $price = $lastSoldPrice;
         }
-        $lastSoldPrice = (int)$output->recentHistory[0]->pricePerUnit;
 
         //Determine the seal->gil efficiency
         $efficiency = $price / (int)$item[0];
@@ -486,7 +491,7 @@ if ($worldExists) {
                             $result['coloring'],
                             $result['itemName'],
                             date("M j H:i", $result['lastUpload']),
-                            number_format($result['lastSoldFor'], 0),
+                            number_format($result['price'], 0),
                             $result['normalizedEfficiency'],
                             number_format($result['sort'], 1),
                             $result['itemRankTab'] . ', ' . $result['itemTab'],
