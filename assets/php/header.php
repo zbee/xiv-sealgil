@@ -13,13 +13,7 @@
         <title>XIV SealGil</title>
 
         <script async src="https://www.googletagmanager.com/gtag/js?id=G-TB8G528SVG"></script>
-        <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
-        gtag('js', new Date());
-
-        gtag('config', 'G-TB8G528SVG');
-        </script>
+        <script async src="https://analytics.zbee.codes/tracker.js" data-ackee-server="https://analytics.zbee.codes" data-ackee-domain-id="349d238c-9146-473f-a267-92789804f487"></script>
     </head>
     <body>
 
